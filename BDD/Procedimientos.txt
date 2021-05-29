@@ -1,0 +1,81 @@
+//********************* VACIAR LA BASE DE DATOS *********************//
+DELIMITER #
+CREATE PROCEDURE limpiarBase()
+BEGIN
+	DELETE FROM CuerpoPedido;
+	DELETE FROM Pedido;
+	DELETE FROM Tiene;
+	DELETE FROM Producto_Servicio;
+	DELETE FROM Establecimiento_telefono;
+	DELETE FROM Establecimiento;
+	DELETE FROM Vehiculo;
+	DELETE FROM Repartidor;
+	DELETE FROM Cliente;
+	DELETE FROM Usuario;
+	DELETE FROM Persona;
+END #
+DELIMITER ;
+
+//********************* OBTENCIÓN DE DATOS DE PERSONAS *********************//
+DELIMITER #
+CREATE PROCEDURE infoCliente(IN corrcliente text)
+BEGIN
+	SELECT c.idPersona, c.idCli as idPartic, CONCAT(p.nombres, " ", p.apaterno, " ", p.amaterno) AS nombre, p.telefono, p.fechanac, p.correo, p.contrasena
+	FROM Persona p, Cliente c
+	WHERE 
+	p.idPersona=c.idPersona AND 
+	p.correo=corrcliente;
+END #
+DELIMITER ;
+
+DELIMITER #
+CREATE PROCEDURE infoUsuario(IN corrusuario text)
+BEGIN
+	SELECT u.idPersona, u.idUs as idPartic, CONCAT(p.nombres, " ", p.apaterno, " ", p.amaterno) AS nombre, p.telefono, p.fechanac, p.correo, p.contrasena
+	FROM Persona p, Usuario u
+	WHERE 
+	p.idPersona=u.idPersona AND 
+	p.correo=corrusuario;
+END #
+DELIMITER ;
+
+DELIMITER #
+CREATE PROCEDURE infoRepartidor(IN corrrepartidor text)
+BEGIN
+	SELECT r.idPersona, r.idRep as idPartic, v.idVe, r.CURP, CONCAT(p.nombres, " ", p.apaterno, " ", p.amaterno) AS nombre, p.telefono, p.fechanac, p.correo, p.contrasena, v.tipo AS vehiculo, v.placa
+	FROM Persona p, Repartidor r, Vehiculo v
+	WHERE 
+	p.idPersona=r.idPersona AND 
+	r.idRep=v.idRep AND 
+	p.correo=corrrepartidor;
+END #
+DELIMITER ;
+
+//********************* ELIMINACIONES *********************//
+DELIMITER #
+CREATE PROCEDURE elimUsuario(IN idusr int, IN idper int)
+BEGIN
+	DELETE FROM Pedido WHERE idUs=idusr;
+	DELETE FROM Usuario WHERE idUs=idusr;
+	DELETE FROM Persona WHERE idPersona=idper;
+END #
+DELIMITER ;
+
+DELIMITER #
+CREATE PROCEDURE elimCliente(IN idclie int, IN idper int)
+BEGIN
+	DELETE FROM Establecimiento WHERE idCli=idclie;
+	DELETE FROM Cliente WHERE idCli=idclie;
+	DELETE FROM Persona WHERE idPersona=idper;
+END #
+DELIMITER ;
+
+DELIMITER #
+CREATE PROCEDURE elimRepartidor(IN idrepa int, IN idper int)
+BEGIN
+	DELETE FROM Pedido WHERE idRep=idrepa;
+	DELETE FROM Vehiculo WHERE idRep=idrepa;
+	DELETE FROM Repartidor WHERE idRep=idrepa;
+	DELETE FROM Persona WHERE idPersona=idper;
+END #
+DELIMITER ;
