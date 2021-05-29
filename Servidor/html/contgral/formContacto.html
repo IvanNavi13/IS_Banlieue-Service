@@ -1,0 +1,40 @@
+<form name="sentMessage" id="contactForm" novalidate>
+    <div class="control-group">
+        <div class="form-group floating-label-form-group controls">
+            <label>Nombre: </label>
+            <input type="text" class="form-control" placeholder="Ingresa tu nombre" id="name" required data-validation-required-message="Ingresa tu nombre.">
+            <p class="help-block text-danger"></p>
+        </div>
+    </div>
+
+    <div class="control-group">
+        <div class="form-group floating-label-form-group controls">
+            <label>Correo eléctronico: </label>
+            <input type="email" class="form-control" placeholder="Correo Electrónico" id="email" required data-validation-required-message="Please enter your email address.">
+            <p class="help-block text-danger"></p>
+        </div>
+    </div>
+
+    <div class="control-group">
+        <div class="form-group col-xs-12 floating-label-form-group controls">
+            <label>Número telefónico: </label>
+            <input type="tel" class="form-control" placeholder="Ingresa tu número telefónico" id="phone" required data-validation-required-message="Please enter your phone number.">
+            <p class="help-block text-danger"></p>
+        </div>
+    </div>
+
+    <div class="control-group">
+        <div class="form-group floating-label-form-group controls">
+            <label>Mensaje: </label>
+            <textarea rows="5" class="form-control" placeholder="Mensaje" id="message" required data-validation-required-message="Please enter a message."></textarea>
+            <p class="help-block text-danger"></p>
+        </div>
+    </div>
+    
+    <br>
+
+    <div id="success"></div>
+
+    <button type="submit" class="btn btn-primary" id="sendMessageButton">Enviar</button>
+</form>
+<script src="../js/contact_me.js"></script>
