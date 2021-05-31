@@ -79,7 +79,7 @@
 
 	}
 	else if($_SERVER["REQUEST_METHOD"]=="DELETE"){
-		//No probado aún
+		//Probado sin interfaz en android
 		$json= stdObj_A_Array( json_decode( $_DELETE["json"] ) );
 
 		if($json["tipoPersona"]=="cli"){
