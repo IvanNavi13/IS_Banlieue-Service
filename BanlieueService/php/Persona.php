@@ -59,6 +59,9 @@
 			responder("Ya existe una cuenta asociada a ese correo");
 		}
 	}
+
+
+
 	else if($_SERVER["REQUEST_METHOD"]=="GET"){
 		$json= stdObj_A_Array( json_decode( $_GET["json"] ) );
 
@@ -75,33 +78,67 @@
 			responder("GET: Mala opción al consultar persona.");	
 		}
 	}
+
+
+
 	else if($_SERVER["REQUEST_METHOD"]=="PUT"){
+		//Al JSON llega: datos, opc, id, fechanac, telefono, *nombre
+		//datos= per | acc //Saber si se está solicitando cambio de datos personales o de acceso
+		//opc= mod | cualquier_otro //En caso de que sean datos personales, preguntar si se modifica el nombre
+		$json= stdObj_A_Array( json_decode( file_get_contents("php://input") ) );
 
-	}
-	else if($_SERVER["REQUEST_METHOD"]=="DELETE"){
-		//Probado sin interfaz en android
-		$json= stdObj_A_Array( json_decode( $_DELETE["json"] ) );
-
-		if($json["tipoPersona"]=="cli"){
-			$idp= $bdd->selColumnaDeTablaEspecificado("idPersona", "Cliente", "idCli", $json["id"]) [0];
-			responder( $bdd->elimCliente( $json["id"], $idp ) [0] );
+		if($json["datos"]=="per"){
+			$json["opc"]=="mod"? $bndPer=true : $bndPer=false;
+			$modif= $bdd->modifDatosPersonales($json["id"], $json["nombres"], $json["apaterno"], $json["amaterno"], $json["telefono"], $json["fechanac"], $bndPer);
+			if($modif)
+				responder("Modificación realizada con éxito, recargue la vista para ver los cambios.");
+			else
+				responder("Algo falló al modificar los datos personales.");
 		}
-		else if($json["tipoPersona"]=="usr"){
-			$idp= $bdd->selColumnaDeTablaEspecificado("idPersona", "Usuario", "idUs", $json["id"]) [0];
-			responder( $bdd->elimUsuario( $json["id"], $idp ) [0] );
-		}
-		else if($json["tipoPersona"]=="rep"){
-			$idp= $bdd->selColumnaDeTablaEspecificado("idPersona", "Repartidor", "idRep", $json["id"]) [0];
-			responder( $bdd->elimRepartidor( $json["id"], $idp ) [0] );
+		else if($json["datos"]=="acc"){
+			$modif= $bdd->modifDatosAcceso($json["id"], $json["correo"], $json["contrasena"]);
+			if($modif)
+				responder("Modificación realizada con éxito, inicie sesión con sus nuevos datos.");
+			else
+				responder("Algo falló al modificar los datos de acceso.");
 		}
 		else{
-			responder("GET: Mala opción al consultar persona.");
+			responder("PUT: Mala opción de modificación de datos");
+		}
+	}
+
+
+	else if($_SERVER["REQUEST_METHOD"]=="PATCH"){
+		$json= stdObj_A_Array( json_decode( file_get_contents("php://input") ) );
+
+		//Enviar correo a los desarrolladores
+		//$json["comentarios"];
+
+		if($json["tipoPersona"]=="cli"){
+			$elim= $bdd->elimCliente( $json["idPartic"], $json["idPersona"] );
+			$elim? responder("Cliente eliminado, regrese pronto a Banlieue Service") : responder("Error al eliminar");
+		}
+		else if($json["tipoPersona"]=="usr"){
+			$elim= $bdd->elimUsuario( $json["idPartic"], $json["idPersona"] );
+			$elim? responder("Usuario eliminado, regrese pronto a Banlieue Service") : responder("Error al eliminar");
+		}
+		else if($json["tipoPersona"]=="rep"){
+			$elim= $bdd->elimRepartidor( $json["idPartic"], $json["idPersona"] );
+			$elim? responder("Repartidor eliminado, regrese pronto a Banlieue Service") : responder("Error al eliminar");
+		}
+		else{
+			responder("DELETE (PATCH): Mala opción para eliminar persona.");
 		}
 	}
 	else{
 		responder("Método HTTP no implementado");
 	}
 	
+
+
+
+
+
 
 	function stdObj_A_Array($obj){
 		$reaged = (array)$obj;
