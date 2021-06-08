@@ -102,6 +102,13 @@
 			else
 				responder("Algo falló al modificar los datos de acceso.");
 		}
+		else if($json["datos"]=="serv"){
+			$bdd->modifRepartidor($json["idrep"], "no");
+			$bdd->modifVehiculo($json["idve"], "no", "no");
+			$modif1= $bdd->modifRepartidor($json["idrep"], $json["CURP"]);
+			$modif2= $bdd->modifVehiculo($json["idve"], $json["vehiculo"], $json["placa"]);
+			($modif1 && $modif2)? responder("Datos de servicio modificados con éxito.") : responder("Algo falló al modificar los datos de servicio.");
+		}
 		else{
 			responder("PUT: Mala opción de modificación de datos");
 		}
