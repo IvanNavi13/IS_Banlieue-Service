@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fillViewport="true"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+
+            >
+
+            <!--TextView android:id="@+id/tvWarning"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:textSize="20dp"
+                /-->
+
+            <EditText android:id="@+id/etModifContraActual"
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Contraseña actual"
+                android:gravity="center"
+                android:inputType="textPassword"
+                android:textColor="@color/white"
+                android:theme="@style/cajasTexto"
+                />
+            <EditText android:id="@+id/etModifContra"
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Contraseña nueva"
+                android:gravity="center"
+                android:inputType="textPassword"
+                android:textColor="@color/white"
+                android:theme="@style/cajasTexto"
+                />
+            <EditText android:id="@+id/etModifVerifContra"
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Confirmar contraseña nueva"
+                android:gravity="center"
+                android:inputType="textPassword"
+                android:textColor="@color/white"
+                android:theme="@style/cajasTexto"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:layout_marginTop="40dp"
+                android:textSize="20dp"
+                android:text="Edite si quiere modificar el correo"
+                />
+            <EditText android:id="@+id/etModifCorreo"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Correo"
+                android:gravity="center"
+                android:inputType="textEmailAddress"
+                android:textColor="@color/white"
+                android:textSize="20dp"
+                android:theme="@style/cajasTexto"
+                />
+
+            <Button android:id="@+id/btnModificarAcc"
+                android:layout_marginTop="40dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="MODIFICAR"
+                android:layout_gravity="center_horizontal"
+                android:textSize="20dp"
+                android:backgroundTint="@color/banCyan"
+                />
+
+            <CheckBox android:id="@+id/checkSoloCorreo"
+                android:layout_marginTop="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Solo modificar correo"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:textSize="20dp"
+                />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

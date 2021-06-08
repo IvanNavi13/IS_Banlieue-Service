@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fillViewport="true"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+
+            >
+
+            <TextView android:id="@+id/tvNombre"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:textSize="20dp"
+                />
+            <TextView android:id="@+id/tvEdad"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:textSize="20dp"
+                />
+
+            <EditText android:id="@+id/etModifNombre"
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Nombre(s)"
+                android:gravity="center"
+                android:inputType="textCapSentences|textAutoCorrect"
+                android:textColor="@color/white"
+                android:textSize="20dp"
+                android:theme="@style/cajasTexto"
+                />
+            <EditText android:id="@+id/etModifApaterno"
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Apellido paterno"
+                android:gravity="center"
+                android:inputType="textCapSentences|textAutoCorrect"
+                android:textColor="@color/white"
+                android:theme="@style/cajasTexto"
+                />
+            <EditText android:id="@+id/etModifAmaterno"
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Apellido materno"
+                android:gravity="center"
+                android:inputType="textCapSentences|textAutoCorrect"
+                android:textColor="@color/white"
+                android:theme="@style/cajasTexto"
+                />
+
+            <TextView
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Fecha de nacimiento"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:textSize="20dp"
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_gravity="center"
+                >
+
+                <Spinner android:id="@+id/spModifDia"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/banCyan"
+                    />
+
+                <Spinner android:id="@+id/spModifMes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/banCyan"
+                    />
+
+                <Spinner android:id="@+id/spModifAnio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/banCyan"
+                    />
+
+            </LinearLayout>
+
+            <EditText android:id="@+id/etModifTelefono"
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Teléfono"
+                android:gravity="center"
+                android:inputType="number"
+                android:maxLength="10"
+                android:textColor="@color/white"
+                android:theme="@style/cajasTexto"
+                />
+
+            <Button android:id="@+id/btnModificarPer"
+                android:layout_marginTop="30dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="MODIFICAR"
+                android:layout_gravity="center_horizontal"
+                android:textSize="20dp"
+                android:backgroundTint="@color/banCyan"
+                />
+
+            <CheckBox android:id="@+id/checkModifNombre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Modificar nombre"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:textSize="20dp"
+                />
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

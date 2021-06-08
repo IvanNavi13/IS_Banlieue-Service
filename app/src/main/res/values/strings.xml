@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">Banlieue-Service</string>
+    <string name="abrirNav">Abrir navegación</string>
+    <string name="cerrarNav">Cerrar navegación</string>
+    <!--string name="google_maps_key">AIzaSyC-1JdHChmCwEBS72G4bUcJoTUQIOI-2ds</string-->
+
+    <!--TÍTULOS DE NAVEGACIÓN-->
+    <!--Usuario-->
+    <string name="usInicio">Inicio</string>
+    <string name="usModifDatosPer">Modificación de datos personales</string>
+    <string name="usModifDatosAcc">Modificación de datos de acceso</string>
+    <string name="usCerrSe">Cierre de sesión</string>
+    <string name="usElimCta">Eliminación de cuenta</string>
+    <string name="usAcerca">Acerca de</string>
+    <string name="usAjustes">Configuración</string>
+    <string name="usViva">Arriba banlieue XD</string>
+    <string name="title_activity_maps">Map</string>
+
+    <!--Cliente-->
+    <string name="repPedidosDisp">Pedidos disponibles</string>
+    <string name="repPedidosReal">Pedidos realizados</string>
+    <string name="repModifDatosServ">Modificaciones de datos de servicio</string>
+
+    <!--Repartidor-->
+
+
+</resources>

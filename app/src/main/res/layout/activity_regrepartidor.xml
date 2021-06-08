@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/fondo_registro"
+    >
+
+    <ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fillViewport="true"
+        android:layout_marginTop="250sp"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+
+            >
+
+            <EditText android:id="@+id/etRegVehiculo"
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Bicicleta, carro, moto, etc."
+                android:gravity="center"
+                android:inputType="textCapSentences|textAutoCorrect"
+                android:textColor="@color/white"
+                android:textSize="20dp"
+                android:theme="@style/cajasTexto"
+                />
+            <EditText android:id="@+id/etRegPlaca"
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Placa del vehículo"
+                android:gravity="center"
+                android:inputType="textCapCharacters"
+                android:textColor="@color/white"
+                android:theme="@style/cajasTexto"
+                />
+            <EditText android:id="@+id/etRegCURP"
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="CURP"
+                android:gravity="center"
+                android:inputType="textCapCharacters"
+                android:maxLength="18"
+                android:textColor="@color/white"
+                android:theme="@style/cajasTexto"
+                />
+
+            <Button android:id="@+id/btnRegistrarRep"
+                android:layout_marginTop="30dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="REGISTRAR"
+                android:layout_gravity="center_horizontal"
+                android:textSize="20dp"
+                android:backgroundTint="@color/banCyan"
+                />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

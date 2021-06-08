@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view"
+    >
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/itemUsHome"
+            android:title="Inicio"/>
+
+        <item android:title="Cuenta">
+            <menu>
+                <group android:checkableBehavior="single">
+                    <item
+                        android:id="@+id/itemUsModifDatosPer"
+                        android:title="Modificar datos personales"/>
+
+                    <item
+                        android:id="@+id/itemUsModifDatosAcc"
+                        android:title="Modificar datos de acceso"/>
+
+                    <item
+                        android:id="@+id/itemUsCerrSes"
+                        android:title="Cerrar sesión" />
+
+                    <item
+                        android:id="@+id/itemUsElimCta"
+                        android:title="Eliminar mi cuenta" />
+                </group>
+            </menu>
+        </item>
+
+
+        <item android:title="Aplicación">
+            <menu>
+                <group android:checkableBehavior="single">
+                    <item
+                        android:id="@+id/itemUsAcerca"
+                        android:title="Acerca de"/>
+
+                </group>
+            </menu>
+        </item>
+
+    </group>
+
+</menu>

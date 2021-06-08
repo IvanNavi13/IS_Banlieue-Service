@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fillViewport="true"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+
+            <EditText android:id="@+id/etModifVehiculo"
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Bicicleta, carro, moto, etc."
+                android:gravity="center"
+                android:inputType="textCapSentences|textAutoCorrect"
+                android:textColor="@color/white"
+                android:textSize="20dp"
+                android:theme="@style/cajasTexto"
+                />
+            <EditText android:id="@+id/etModifPlaca"
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Placa del vehículo"
+                android:gravity="center"
+                android:inputType="textCapCharacters"
+                android:textColor="@color/white"
+                android:theme="@style/cajasTexto"
+                />
+            <EditText android:id="@+id/etModifCurp"
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="CURP"
+                android:gravity="center"
+                android:inputType="textCapCharacters"
+                android:maxLength="18"
+                android:textColor="@color/white"
+                android:theme="@style/cajasTexto"
+                />
+
+            <Button android:id="@+id/btnModificarServ"
+                android:layout_marginTop="30dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="MODIFICAR"
+                android:layout_gravity="center_horizontal"
+                android:textSize="20dp"
+                android:backgroundTint="@color/banCyan"
+                />
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

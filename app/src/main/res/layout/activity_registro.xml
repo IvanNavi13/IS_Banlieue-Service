@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/fondo_registro"
+    >
+
+    <ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fillViewport="true"
+        android:layout_marginTop="250sp"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+
+            >
+
+            <EditText android:id="@+id/etRegNombre"
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Nombre(s)"
+                android:gravity="center"
+                android:inputType="textCapSentences|textAutoCorrect"
+                android:textColor="@color/white"
+                android:textSize="20dp"
+                android:theme="@style/cajasTexto"
+                />
+            <EditText android:id="@+id/etRegApaterno"
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Apellido paterno"
+                android:gravity="center"
+                android:inputType="textCapSentences|textAutoCorrect"
+                android:textColor="@color/white"
+                android:theme="@style/cajasTexto"
+                />
+            <EditText android:id="@+id/etRegAmaterno"
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Apellido materno"
+                android:gravity="center"
+                android:inputType="textCapSentences|textAutoCorrect"
+                android:textColor="@color/white"
+                android:theme="@style/cajasTexto"
+                />
+
+            <TextView
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Fecha de nacimiento"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:textSize="20dp"
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_gravity="center"
+                >
+
+                <Spinner android:id="@+id/spRegDia"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/banCyan"
+                    />
+
+                <Spinner android:id="@+id/spRegMes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/banCyan"
+                    />
+
+                <Spinner android:id="@+id/spRegAnio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/banCyan"
+                    />
+
+            </LinearLayout>
+
+            <Spinner android:id="@+id/spRegTipoUsuario"
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/banCyan"
+                />
+
+            <EditText android:id="@+id/etRegTelefono"
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Teléfono"
+                android:gravity="center"
+                android:inputType="number"
+                android:maxLength="10"
+                android:textColor="@color/white"
+                android:theme="@style/cajasTexto"
+                />
+
+            <EditText android:id="@+id/etRegCorreo"
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Correo"
+                android:gravity="center"
+                android:inputType="textEmailAddress"
+                android:textColor="@color/white"
+                android:theme="@style/cajasTexto"
+                />
+
+            <EditText android:id="@+id/etRegContra"
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Contraseña"
+                android:gravity="center"
+                android:inputType="textPassword"
+                android:textColor="@color/white"
+                android:theme="@style/cajasTexto"
+                />
+
+            <EditText android:id="@+id/etRegConfcontra"
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Confirmar contraseña"
+                android:gravity="center"
+                android:inputType="textPassword"
+                android:textColor="@color/white"
+                android:theme="@style/cajasTexto"
+                />
+
+            <Button android:id="@+id/btnRegistrar"
+                android:layout_marginTop="30dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="REGISTRAR"
+                android:layout_gravity="center_horizontal"
+                android:textSize="20dp"
+                android:backgroundTint="@color/banCyan"
+                />
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
