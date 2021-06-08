@@ -17,9 +17,13 @@ import java.io.UnsupportedEncodingException;
 
 public class ServicioWeb {
     private Context ctx;
+
+    //Modificar IP del servidor que se esté usando
     private final String ip= "192.168.100.7";
     //private final String ip= "192.168.43.240";
     //private final String ip= "192.168.0.17";
+    /////////////////////////////////////////////////
+
     private StringBuilder url;
     private static ServicioWeb servweb;
     private RequestQueue queue;
