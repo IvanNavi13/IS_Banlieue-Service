@@ -37,7 +37,7 @@ public class PanCliDatosLocal extends Fragment implements View.OnClickListener {
         act= getActivity();
         mje= new Mensaje(ctx);
 
-        return li.inflate(R.layout.fragment_clidatosneg, vg, false);
+        return li.inflate(R.layout.fragment_panclinvonegocio, vg, false);
     }
 
     @Override
@@ -45,7 +45,7 @@ public class PanCliDatosLocal extends Fragment implements View.OnClickListener {
         super.onActivityCreated(b);
         initComponents();
 
-        //btnModificar.setText("Modificar");
+        btnModificar.setText("Modificar");
         contenidoSpinner(spHoraAp, R.array.hora24, R.layout.spinner_tipous_item);
         contenidoSpinner(spHoraCi, R.array.hora24, R.layout.spinner_tipous_item);
         contenidoSpinner(spMinAp, R.array.minuto, R.layout.spinner_tipous_item);
@@ -55,7 +55,12 @@ public class PanCliDatosLocal extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View view){
-
+        int pressed= view.getId();
+        switch (pressed){
+            case R.id.btnRegistrar:
+                mje.mostrarToast("fdf", 'c');
+                break;
+        }
     }
 
     private void initComponents(){
@@ -68,7 +73,7 @@ public class PanCliDatosLocal extends Fragment implements View.OnClickListener {
         etNombre= (EditText) getView().findViewById(R.id.etReglocalNombre);
         etDireccion= (EditText) getView().findViewById(R.id.etReglocalDireccion);
 
-        btnModificar= (Button) getView().findViewById(R.id.btnModificar);
+        btnModificar= (Button) getView().findViewById(R.id.btnRegistrar);
         btnModificar.setOnClickListener(this);
     }
 
