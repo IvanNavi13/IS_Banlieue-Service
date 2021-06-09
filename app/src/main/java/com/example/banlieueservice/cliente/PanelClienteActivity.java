@@ -76,6 +76,14 @@ public class PanelClienteActivity extends AppCompatActivity implements Navigatio
                 irAFragment(new PanCliModifDatosAcc(datosCliente), getString(R.string.usModifDatosAcc));
                 break;
 
+            case R.id.itemCliAdminNegocios:
+                irAFragment(new PanCliAdminNegocios(datosCliente.get("idPartic")), getString(R.string.cliAdminNegocios));
+                break;
+
+            case R.id.itemCliNvoNegocio:
+                irAFragment(new PanCliNvoNegocio(datosCliente.get("idPartic")), getString(R.string.cliNvoNegocio));
+                break;
+
             case R.id.itemCliCerrSes:
                 Intent intent= new Intent(PanelClienteActivity.this, MainActivity.class);
                 startActivity(intent);

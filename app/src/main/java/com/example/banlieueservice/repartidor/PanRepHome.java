@@ -50,8 +50,8 @@ public class PanRepHome extends Fragment{
         viewPager.setAdapter(adaptadorDePestanas);
         TabLayout tabLayout = getView().findViewById(R.id.tab_layout);
         tabLayout.setupWithViewPager(viewPager);
-        tabLayout.setBackground(new ColorDrawable(Color.rgb(17, 29, 94))); //ban cyan
-        tabLayout.setSelectedTabIndicatorColor(Color.rgb(3, 196, 161)); //ban amarillo
+        tabLayout.setBackground(new ColorDrawable(Color.rgb(17, 29, 94))); //ban azul
+        tabLayout.setSelectedTabIndicatorColor(Color.rgb(3, 196, 161)); //ban cyan
     }
 
 

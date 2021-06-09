@@ -6,6 +6,7 @@ import org.json.JSONArray;
 
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.Map;
 
 public class JSON {
@@ -60,16 +61,34 @@ public class JSON {
         return mapaDatos;
     }
 
+    //el parámetro jsonStr es de tipo arreglo: [{}, {}]
+    public LinkedList<Map<String, String>> obtenerDatosArreglo(String jsonStr){
+        LinkedList<Map<String, String>> listaMapas= new LinkedList<>();
+
+        try{
+            JSONArray jsonArray= new JSONObject(jsonStr).getJSONArray("listaNegocios");
+            JSONObject jobj;
+            for(int i=0; i<jsonArray.length(); i++){
+                jobj= jsonArray.getJSONObject(i);
+                listaMapas.add(obtenerDatos(jobj.toString()));
+            }
+        }catch(JSONException ex){
+            ex.printStackTrace();
+        }
+
+        return listaMapas;
+    }
+
     public String strJSON(){
         return json.toString();
     }
 
     //Agregar objetos JSON al arreglo
-    public static void agregarObjeto(JSON obj){
+    /*public static void agregarObjeto(JSON obj){
         array.put(obj.json);
     }
 
     public static String obtArregloJSON(){
         return array.toString();
-    }
+    }*/
 }

@@ -17,11 +17,12 @@
     <string name="title_activity_maps">Map</string>
 
     <!--Cliente-->
-    <string name="repPedidosDisp">Pedidos disponibles</string>
-    <string name="repPedidosReal">Pedidos realizados</string>
-    <string name="repModifDatosServ">Modificaciones de datos de servicio</string>
+    <string name="cliAdminNegocios">Administración de locales</string>
+    <string name="cliNvoNegocio">Alta de nuevo negocio</string>
 
     <!--Repartidor-->
-
+    <string name="repModifDatosServ">Modificaciones de datos de servicio</string>
+    <string name="repPedidosDisp">Pedidos disponibles</string>
+    <string name="repPedidosReal">Pedidos realizados</string>
 
 </resources>

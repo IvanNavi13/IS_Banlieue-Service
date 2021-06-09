@@ -21,10 +21,6 @@
                         android:title="Modificar datos de acceso"/>
 
                     <item
-                        android:id="@+id/itemCliModifDatosNegocios"
-                        android:title="Administrar locales"/>
-
-                    <item
                         android:id="@+id/itemCliCerrSes"
                         android:title="Cerrar sesión" />
 
@@ -34,6 +30,22 @@
                 </group>
             </menu>
         </item>
+
+        <item android:title="Negocio">
+            <menu>
+                <group android:checkableBehavior="single">
+                    <item
+                        android:id="@+id/itemCliAdminNegocios"
+                        android:title="Administrar locales"/>
+
+                    <item
+                        android:id="@+id/itemCliNvoNegocio"
+                        android:title="Nuevo negocio"/>
+
+                </group>
+            </menu>
+        </item>
+
 
         <item android:title="Aplicación">
             <menu>
