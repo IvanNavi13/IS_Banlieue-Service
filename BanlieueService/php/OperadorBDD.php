@@ -210,10 +210,17 @@
 			);
 		}
 
-		public function elimEstablecimiento($id, $idDueno, $nombre, $giro, $direccion, $apertura, $cierre){
+		public function elimEstablecimiento($id){
 			return $this->ejecutarDeleteQuery(
-				"INSERT INTO Establecimiento VALUES('$id', '$idDueno', '$nombre', '$giro', '$direccion', '$apertura', '$cierre')",
-				array($id, $idDueno, $nombre, $giro, $direccion, $apertura, $cierre)
+				"DELETE FROM Establecimiento WHERE idEst='$id'",
+				array($id)
+			);
+		}
+
+		public function elimRelacionEstablServicio($idEstablecimiento){ //Se debe llamar este método antes de eliminar un establecimiento
+			return $this->ejecutarDeleteQuery(
+				"DELETE FROM Tiene WHERE idEst='$idEstablecimiento'",
+				array($idEstablecimiento)
 			);
 		}
 

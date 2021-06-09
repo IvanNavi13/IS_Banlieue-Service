@@ -52,7 +52,7 @@
 				($res && $res2)? responder("Repartidor registrado con éxito") : responder("Fallo al registrar repartidor");
 			}
 			else{
-				responder("POST: Mala opción al registrar persona. ".$json["tipoPersona"]);
+				responder("POST: Código de persona incorrecto. ".$json["tipoPersona"]);
 			}
 		}
 		else{
@@ -75,7 +75,7 @@
 			responder( $bdd->infoDeRepartidor( $json["correo"] ) [0] );
 		}
 		else{
-			responder("GET: Mala opción al consultar persona.");	
+			responder("GET: Código de consulta incorrecto.");	
 		}
 	}
 
@@ -100,7 +100,7 @@
 			if($modif)
 				responder("Modificación realizada con éxito, inicie sesión con sus nuevos datos.");
 			else
-				responder("Algo falló al modificar los datos de acceso.");
+				responder("Código de modificación específica incorrecto.");
 		}
 		else if($json["datos"]=="serv"){
 			$bdd->modifRepartidor($json["idrep"], "no");
@@ -110,7 +110,7 @@
 			($modif1 && $modif2)? responder("Datos de servicio modificados con éxito.") : responder("Algo falló al modificar los datos de servicio.");
 		}
 		else{
-			responder("PUT: Mala opción de modificación de datos");
+			responder("PUT: Código de modificación incorrecto");
 		}
 	}
 
@@ -134,7 +134,7 @@
 			$elim? responder("Repartidor eliminado, regrese pronto a Banlieue Service") : responder("Error al eliminar");
 		}
 		else{
-			responder("DELETE (PATCH): Mala opción para eliminar persona.");
+			responder("DELETE (PATCH): Código de eliminación incorrecto.");
 		}
 	}
 	else{
