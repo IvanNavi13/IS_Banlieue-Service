@@ -14,21 +14,28 @@ import android.widget.Spinner;
 
 import androidx.annotation.ArrayRes;
 import androidx.annotation.LayoutRes;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
 import com.example.banlieueservice.R;
 import com.example.banlieueservice.herramientas.Mensaje;
+import com.example.banlieueservice.interfaces.FragmentCommunicator;
+import com.example.banlieueservice.interfaces.VolleyCallBack;
+import com.example.banlieueservice.web.JSON;
+import com.example.banlieueservice.web.ServicioWeb;
 
 import java.util.Map;
 
-public class PanCliDatosLocal extends Fragment implements View.OnClickListener {
+public class PanCliDatosLocal extends Fragment implements View.OnClickListener, FragmentCommunicator{
     private Context ctx;
     private FragmentActivity act;
     private Mensaje mje;
     private Button btnModificar;
     private EditText etNombre, etDireccion;
     private Spinner spHoraAp, spMinAp, spHoraCi, spMinCi, spGiro;
+    private String idEstablecimiento;
+    private boolean modificar;
 
     @Override
     public View onCreateView(LayoutInflater li, ViewGroup vg, Bundle b) {
@@ -36,6 +43,7 @@ public class PanCliDatosLocal extends Fragment implements View.OnClickListener {
         ctx= getContext();
         act= getActivity();
         mje= new Mensaje(ctx);
+        modificar=false; //Por defecto no se pueden modificar datos del local
 
         return li.inflate(R.layout.fragment_panclinvonegocio, vg, false);
     }
@@ -51,6 +59,8 @@ public class PanCliDatosLocal extends Fragment implements View.OnClickListener {
         contenidoSpinner(spMinAp, R.array.minuto, R.layout.spinner_tipous_item);
         contenidoSpinner(spMinCi, R.array.minuto, R.layout.spinner_tipous_item);
         contenidoSpinner(spGiro, R.array.giro_negocio, R.layout.spinner_tipous_item);
+
+
     }
 
     @Override
@@ -58,9 +68,70 @@ public class PanCliDatosLocal extends Fragment implements View.OnClickListener {
         int pressed= view.getId();
         switch (pressed){
             case R.id.btnRegistrar:
-                mje.mostrarToast("fdf", 'c');
+                if(modificar){
+                    String nombre= etNombre.getText().toString();
+                    String direc= etDireccion.getText().toString();
+                    String apertura= spHoraAp.getSelectedItem()+":"+spMinAp.getSelectedItem();
+                    String cierre= spHoraCi.getSelectedItem()+":"+spMinCi.getSelectedItem();
+
+                    if(nombre.equals("") || direc.equals(""))
+                        mje.mostrarToast("Ingrese todos los datos", 'c');
+                    else{
+                        JSON json= new JSON();
+                        json.agregarDato("idEst", idEstablecimiento);
+                        json.agregarDato("nombre", nombre);
+                        json.agregarDato("giro", String.valueOf(spGiro.getSelectedItemPosition())+"@"+spGiro.getSelectedItem());
+                        json.agregarDato("direccion", direc);
+                        json.agregarDato("apertura", apertura);
+                        json.agregarDato("cierre", cierre);
+
+                        ServicioWeb.obtenerInstancia(ctx).modificarEstablecimiento(json.strJSON(), new VolleyCallBack() {
+                            @Override
+                            public void onSuccess(String result) {
+                                mje.mostrarDialog(result, "Banlieue Service", (AppCompatActivity)act);
+                                etDireccion.setText("");
+                                etNombre.setText("");
+                            }
+
+                            @Override
+                            public void onJsonSuccess(String jsonResult) {
+
+                            }
+
+                            @Override
+                            public void onError(String result) {
+                                mje.mostrarDialog(result, "Banlieue Service", (AppCompatActivity)act);
+                            }
+                        });
+                    }
+                }
+                else
+                    mje.mostrarToast("Seleccione un negocio", 'c');
                 break;
         }
+    }
+
+    @Override
+    public void sendData(Map<String, String> data) {
+        idEstablecimiento= data.get("idEst");
+        etNombre.setText(data.get("nombre"));
+        etDireccion.setText(data.get("direccion"));
+
+        //Para mostrar el giro del negocio
+        int index= Integer.parseInt( data.get("giro").split("@")[0] );
+        spGiro.setSelection(index);
+
+        //Para mostrar la hora registrada de apertura y cierre
+        String[] apertura= data.get("apertura").split(":");
+        String[] cierre= data.get("cierre").split(":");
+        spHoraAp.setSelection(Integer.parseInt(apertura[0]));
+        spMinAp.setSelection(Integer.parseInt(apertura[1])/10);
+        spHoraCi.setSelection(Integer.parseInt(cierre[0]));
+        spMinCi.setSelection(Integer.parseInt(cierre[1])/10);
+    }
+    @Override
+    public void sendSingleData(Object data){
+        modificar= (Boolean) data;
     }
 
     private void initComponents(){
@@ -89,17 +160,5 @@ public class PanCliDatosLocal extends Fragment implements View.OnClickListener {
         //Fondo Cyan
         spinner.setPopupBackgroundDrawable(new ColorDrawable(Color.rgb(3, 196, 161)));
 
-    }
-
-    public void desplegarDatos(Map<String, String> datosLocal){
-        mje.mostrarToast("sdfsdf", 'c');
-        /*etNombre.setText(datosLocal.get("nombre"));
-        etDireccion.setText(datosLocal.get("direccion"));
-
-        //Para mostrar el giro del negocio
-        int index= Integer.parseInt( datosLocal.get("giro").split("@")[0] );
-        spGiro.setSelection(index);*/
-
-        //Para mostrar la hora registrada de apertura y cierre
     }
 }

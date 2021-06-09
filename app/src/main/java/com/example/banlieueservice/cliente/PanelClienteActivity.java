@@ -41,6 +41,7 @@ public class PanelClienteActivity extends AppCompatActivity implements Navigatio
     private DrawerLayout drawerLayout;
     private Map<String, String> datosCliente;
     private NavigationView navView;
+    private String correo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,8 +54,9 @@ public class PanelClienteActivity extends AppCompatActivity implements Navigatio
         initComponents();
         cargarNavegador();
 
-
-        irAFragment(new PanCliHome(), getString(R.string.usInicio));
+        PanCliHome home= new PanCliHome();
+        home.sendSingleData(getIntent().getStringExtra("correo"));
+        irAFragment(home, getString(R.string.usInicio));
     }
 
     
@@ -65,7 +67,9 @@ public class PanelClienteActivity extends AppCompatActivity implements Navigatio
 
         switch(menuSelected){
             case R.id.itemCliHome:
-                irAFragment(new PanCliHome(), getString(R.string.usInicio));
+                PanCliHome home= new PanCliHome();
+                home.sendSingleData(getIntent().getStringExtra("correo"));
+                irAFragment(home, getString(R.string.usInicio));
                 break;
 
             case R.id.itemCliModifDatosPer:
@@ -76,12 +80,12 @@ public class PanelClienteActivity extends AppCompatActivity implements Navigatio
                 irAFragment(new PanCliModifDatosAcc(datosCliente), getString(R.string.usModifDatosAcc));
                 break;
 
-            case R.id.itemCliAdminNegocios:
-                irAFragment(new PanCliAdminNegocios(datosCliente.get("idPartic")), getString(R.string.cliAdminNegocios));
-                break;
-
             case R.id.itemCliNvoNegocio:
                 irAFragment(new PanCliNvoNegocio(datosCliente.get("idPartic")), getString(R.string.cliNvoNegocio));
+                break;
+
+            case R.id.itemCliElimNegocio:
+                irAFragment(new PanCliElimNegocio(datosCliente), getString(R.string.cliElimNegocio));
                 break;
 
             case R.id.itemCliCerrSes:

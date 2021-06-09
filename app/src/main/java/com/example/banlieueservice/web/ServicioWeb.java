@@ -70,11 +70,21 @@ public class ServicioWeb {
     }
 
     public void modificarDatosServicio(String jsonStr, VolleyCallBack vcb){
-        modificarDatosPersonales(jsonStr, vcb);
+        modificarDatosPersonales(jsonStr, vcb); //Reutilización, se crea el método por concepto solamente
+    }
+
+    public void modificarEstablecimiento(String jsonStr, VolleyCallBack vcb){
+        definirURL("http://"+ip+"/BanlieueService/php/Establecimiento.php");
+        altaModifElim(jsonStr, vcb, Request.Method.PUT);
     }
 
     public void eliminarPersona(String jsonStr, VolleyCallBack vcb){
         definirURL("http://"+ip+"/BanlieueService/php/Persona.php");
+        altaModifElim(jsonStr, vcb, Request.Method.PATCH); //Con DELETE no funcionó así que usamos PATCH
+    }
+
+    public void eliminarNegocio(String jsonStr, VolleyCallBack vcb){
+        definirURL("http://"+ip+"/BanlieueService/php/Establecimiento.php");
         altaModifElim(jsonStr, vcb, Request.Method.PATCH); //Con DELETE no funcionó así que usamos PATCH
     }
 

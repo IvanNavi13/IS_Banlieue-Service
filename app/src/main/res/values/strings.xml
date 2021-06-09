@@ -19,6 +19,7 @@
     <!--Cliente-->
     <string name="cliAdminNegocios">Administración de locales</string>
     <string name="cliNvoNegocio">Alta de nuevo negocio</string>
+    <string name="cliElimNegocio">Baja de negocio</string>
 
     <!--Repartidor-->
     <string name="repModifDatosServ">Modificaciones de datos de servicio</string>
