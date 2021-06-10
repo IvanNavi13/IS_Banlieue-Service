@@ -58,21 +58,14 @@ DROP TABLE IF EXISTS Producto_Servicio;
 CREATE TABLE Producto_Servicio
 (
   idProdserv INT NOT NULL,
+  idEst INT NOT NULL,
   descripcion TEXT NOT NULL,
   nombre TEXT NOT NULL,
   precio DOUBLE NOT NULL,
-  PRIMARY KEY (idProdserv)
-);
-
-DROP TABLE IF EXISTS Tiene;
-CREATE TABLE Tiene
-(
-  idProdserv INT NOT NULL,
-  idEst INT NOT NULL,
-  PRIMARY KEY (idProdserv, idEst),
-  FOREIGN KEY (idProdserv) REFERENCES Producto_Servicio(idProdserv),
+  PRIMARY KEY (idProdserv),
   FOREIGN KEY (idEst) REFERENCES Establecimiento(idEst)
 );
+
 
 DROP TABLE IF EXISTS Establecimiento_telefono;
 CREATE TABLE Establecimiento_telefono
