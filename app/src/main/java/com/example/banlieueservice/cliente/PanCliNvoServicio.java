@@ -27,10 +27,12 @@ public class PanCliNvoServicio extends AppCompatDialogFragment {
     private Mensaje mje;
     private EditText etNombre, etDescripcion, etPrecio;
     private TextView tvNegocioNvoServ;
+    private PanCliServsLocal serviciosDelLocal;
 
-    public PanCliNvoServicio(String idNegocio, String nombreNegocio){
+    public PanCliNvoServicio(String idNegocio, String nombreNegocio, PanCliServsLocal serviciosDelLocal){
         this.nombreNegocio= nombreNegocio;
         this.idNegocio= idNegocio;
+        this.serviciosDelLocal= serviciosDelLocal;
     }
 
     @Override
@@ -76,6 +78,7 @@ public class PanCliNvoServicio extends AppCompatDialogFragment {
                         @Override
                         public void onSuccess(String result) {
                             mje.mostrarToast(result, 'l');
+                            serviciosDelLocal.cargarInfoServicio(); //Para actualizar la lista a la vista del usuario
                         }
 
                         @Override

@@ -24,11 +24,13 @@ public class PanCliModifServicio extends AppCompatDialogFragment {
     private Mensaje mje;
     private EditText etNombre, etDescripcion, etPrecio;
     private TextView tvNegocioNvoServ;
+    private PanCliServsLocal serviciosDelLocal;
 
-    public PanCliModifServicio(String idServicio, String nombreNegocio, String[] datosServicio){
+    public PanCliModifServicio(String idServicio, String nombreNegocio, String[] datosServicio, PanCliServsLocal serviciosDelLocal){
         this.nombreNegocio= nombreNegocio;
         this.idServicio= idServicio;
         this.datosServicio= datosServicio;
+        this.serviciosDelLocal=serviciosDelLocal;
     }
 
     @Override
@@ -78,6 +80,7 @@ public class PanCliModifServicio extends AppCompatDialogFragment {
                         @Override
                         public void onSuccess(String result) {
                             mje.mostrarToast(result, 'l');
+                            serviciosDelLocal.cargarInfoServicio(); //Para actualizar la lista a la vista del usuario
                         }
 
                         @Override

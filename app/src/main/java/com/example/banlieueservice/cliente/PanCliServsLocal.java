@@ -63,7 +63,7 @@ public class PanCliServsLocal extends Fragment implements View.OnClickListener, 
         switch (pressed){
             case R.id.btn:
                 //Parametros: nombre del negocio, id de negocio
-                new PanCliNvoServicio(idEstablecimiento, nombreEstablecimiento).show(act.getSupportFragmentManager(), "Servicio");
+                new PanCliNvoServicio(idEstablecimiento, nombreEstablecimiento, this).show(act.getSupportFragmentManager(), "Servicio");
                 break;
         }
     }
@@ -86,6 +86,7 @@ public class PanCliServsLocal extends Fragment implements View.OnClickListener, 
                 @Override
                 public void onSuccess(String result) {
                     mje.mostrarToast(result, 'l');
+                    cargarInfoServicio(); //Para actualizar la lista a la vista del usuario
                 }
 
                 @Override
@@ -105,7 +106,7 @@ public class PanCliServsLocal extends Fragment implements View.OnClickListener, 
                     infoServicios.get(position).get("descripcion"),
                     infoServicios.get(position).get("precio")
             };
-            new PanCliModifServicio(idProdserv, nombreEstablecimiento, muestraDatosServ).show(act.getSupportFragmentManager(), "Servicio");
+            new PanCliModifServicio(idProdserv, nombreEstablecimiento, muestraDatosServ, this).show(act.getSupportFragmentManager(), "Servicio");
         }
         else
             mje.mostrarDialog(el.obtDescripcion()+"\n\nPor solo $"+precioStr, el.obtNombre(), (AppCompatActivity)act);
@@ -122,7 +123,7 @@ public class PanCliServsLocal extends Fragment implements View.OnClickListener, 
 
     }
 
-    private void cargarInfoServicio(){
+    public void cargarInfoServicio(){
         JSON json= new JSON();
         json.agregarDato("idEst", idEstablecimiento);
 
@@ -145,11 +146,6 @@ public class PanCliServsLocal extends Fragment implements View.OnClickListener, 
                                     infoServicios.get(i).get("descripcion")
                             )
                     );
-                }
-                System.out.println(infoServicios.size());
-                System.out.println(servicios.size());
-                for(ElementoLista el: servicios){
-                    System.out.println(el.obtDescripcion());
                 }
                 crearLista(servicios);
             }
@@ -191,16 +187,20 @@ public class PanCliServsLocal extends Fragment implements View.OnClickListener, 
         checkElimServ.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(checkModifServ.isChecked())
-                    checkElimServ.setChecked(false);
+                if(isChecked) {
+                    checkModifServ.setChecked(false);
+                    mje.mostrarToast("Se eliminará el servicio que selecciones", 'c');
+                }
             }
         });
         checkModifServ= (CheckBox) getView().findViewById(R.id.checkServModif);
         checkModifServ.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(checkElimServ.isChecked())
-                    checkModifServ.setChecked(false);
+                if(isChecked) {
+                    checkElimServ.setChecked(false);
+                    mje.mostrarToast("Podrás modificar el servicio que selecciones", 'c');
+                }
             }
         });
     }
