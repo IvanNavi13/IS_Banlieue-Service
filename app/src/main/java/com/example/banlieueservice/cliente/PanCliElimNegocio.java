@@ -138,7 +138,7 @@ public class PanCliElimNegocio extends Fragment implements View.OnClickListener,
 
             @Override
             public void onJsonSuccess(String jsonResult) {
-                infoLocales= json.obtenerDatosArreglo(jsonResult);
+                infoLocales= json.obtenerDatosArreglo(jsonResult, "listaNegocios");
 
                 //SPINNER DE SELECCIÓN
                 LinkedList<String> nombres= new LinkedList<>();

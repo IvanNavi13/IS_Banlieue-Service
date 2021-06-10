@@ -49,16 +49,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch(pressed){
             case R.id.btnEntrar:
                 //Zona para pruebas/////////////////
-                Intent intentp= new Intent(MainActivity.this, PanelClienteActivity.class);
+                /*Intent intentp= new Intent(MainActivity.this, PanelClienteActivity.class);
                 //Intent intentp= new Intent(MainActivity.this, MapaActivity.class);
                 intentp.putExtra("correo", "cli@ente");
                 etContra.setText("");
                 etCorreo.setText("");
                 startActivity(intentp);
-                finish();
+                finish();*/
                 ////////////////////////////////////
 
-                /*if(obtenerDatosET().contains(""))
+                if(obtenerDatosET().contains(""))
                     mje.mostrarToast("Ingrese correo y contraseña", 'c');
                 else {
                     //Para iniciar la sesión: primero se crea un JSON con el correo y contraseña ingresados...
@@ -114,7 +114,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             mje.mostrarDialog(result, "Banlieue Service", mainAct);
                         }
                     });
-                }*/
+                }
 
                 break;
 

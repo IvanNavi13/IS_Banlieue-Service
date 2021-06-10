@@ -49,6 +49,11 @@ public class ServicioWeb {
         altaModifElim(jsonStr, vcb, Request.Method.POST);
     }
 
+    public void nuevoServicioEst(String jsonStr, VolleyCallBack vcb){
+        definirURL("http://"+ip+"/BanlieueService/php/Producto_Servicio.php");
+        altaModifElim(jsonStr, vcb, Request.Method.POST);
+    }
+
     public void infoPersona(String jsonStr, VolleyCallBack vcb){
         definirURL("http://"+ip+"/BanlieueService/php/Persona.php?json="+jsonStr);
         consulta(vcb);
@@ -56,6 +61,11 @@ public class ServicioWeb {
 
     public void infoNegocios(String jsonStr, VolleyCallBack vcb){
         definirURL("http://"+ip+"/BanlieueService/php/Establecimiento.php?json="+jsonStr);
+        consulta(vcb);
+    }
+
+    public void infoServicios(String jsonStr, VolleyCallBack vcb){
+        definirURL("http://"+ip+"/BanlieueService/php/Producto_Servicio.php?json="+jsonStr);
         consulta(vcb);
     }
 
@@ -69,12 +79,19 @@ public class ServicioWeb {
         altaModifElim(jsonStr, vcb, Request.Method.PUT);
     }
 
+    //Modificar datos de servicio del repartidor
     public void modificarDatosServicio(String jsonStr, VolleyCallBack vcb){
         modificarDatosPersonales(jsonStr, vcb); //Reutilización, se crea el método por concepto solamente
     }
 
     public void modificarEstablecimiento(String jsonStr, VolleyCallBack vcb){
         definirURL("http://"+ip+"/BanlieueService/php/Establecimiento.php");
+        altaModifElim(jsonStr, vcb, Request.Method.PUT);
+    }
+
+    //Modificación de servicios de un local
+    public void modificarServicioEst(String jsonStr, VolleyCallBack vcb){
+        definirURL("http://"+ip+"/BanlieueService/php/Producto_Servicio.php");
         altaModifElim(jsonStr, vcb, Request.Method.PUT);
     }
 
@@ -85,6 +102,11 @@ public class ServicioWeb {
 
     public void eliminarNegocio(String jsonStr, VolleyCallBack vcb){
         definirURL("http://"+ip+"/BanlieueService/php/Establecimiento.php");
+        altaModifElim(jsonStr, vcb, Request.Method.PATCH); //Con DELETE no funcionó así que usamos PATCH
+    }
+
+    public void eliminarServicio(String jsonStr, VolleyCallBack vcb){
+        definirURL("http://"+ip+"/BanlieueService/php/Producto_Servicio.php");
         altaModifElim(jsonStr, vcb, Request.Method.PATCH); //Con DELETE no funcionó así que usamos PATCH
     }
 

@@ -134,7 +134,7 @@ public class PanelUsuarioActivity extends AppCompatActivity implements Navigatio
         drawerLayout = (DrawerLayout) findViewById(R.id.drawerPanUs);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawerLayout, toolbar, R.string.abrirNav, R.string.cerrarNav);
-        toggle.getDrawerArrowDrawable().setColor(Color.BLACK);
+        //toggle.getDrawerArrowDrawable().setColor(Color.BLACK);
         drawerLayout.addDrawerListener(toggle);
         drawerLayout.getLayoutParams();
         toggle.syncState();

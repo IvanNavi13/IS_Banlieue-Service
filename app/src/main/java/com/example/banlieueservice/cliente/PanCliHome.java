@@ -75,7 +75,7 @@ public class PanCliHome extends Fragment implements OnItemSelectedListener, Frag
 
         titulos.add("Información de local");
         contPestanas.add(panCliDatosLocal);
-        titulos.add("Servicios que ofrece");
+        titulos.add("Productos/Servicios que ofrece");
         contPestanas.add(panCliServsLocal);
 
         adaptadorDePestanas = new PanRepHome.AdaptadorDePestanas(getChildFragmentManager(), titulos, contPestanas);
@@ -94,6 +94,10 @@ public class PanCliHome extends Fragment implements OnItemSelectedListener, Frag
         if(i>0){
             panCliDatosLocal.sendData(infoLocales.get(i-1));
             panCliDatosLocal.sendSingleData(true);
+            Map<String, String> infoParticular= new HashMap<>();
+            infoParticular.put("idEst", infoLocales.get(i-1).get("idEst"));
+            infoParticular.put("nombre", infoLocales.get(i-1).get("nombre"));
+            panCliServsLocal.sendData(infoParticular);
         }
         else{ //Opciones por default
             Map<String, String> defecto= new HashMap<>();
@@ -136,7 +140,7 @@ public class PanCliHome extends Fragment implements OnItemSelectedListener, Frag
 
             @Override
             public void onJsonSuccess(String jsonResult) {
-                infoLocales= json.obtenerDatosArreglo(jsonResult);
+                infoLocales= json.obtenerDatosArreglo(jsonResult, "listaNegocios");
 
                 //SPINNER DE SELECCIÓN
                 LinkedList<String> nombres= new LinkedList<>();

@@ -167,12 +167,6 @@ public class PanelClienteActivity extends AppCompatActivity implements Navigatio
         drawerLayout.closeDrawer(GravityCompat.START);
     }
 
-    private void setForeground(Drawable foreground) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            setForeground(foreground);
-        }
-    }
-
     private void initComponents(){
         navView= (NavigationView) findViewById(R.id.navViewCli);
         navView.setNavigationItemSelectedListener(this);

@@ -6,10 +6,15 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.view.Gravity;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.banlieueservice.R;
+
+import java.util.LinkedList;
 
 public class Mensaje extends View{
     private Context ctx;
@@ -23,11 +28,6 @@ public class Mensaje extends View{
         AlertDialog dialog;
         AlertDialog.Builder builder= new AlertDialog.Builder(activity);
         builder.setMessage(mje).setTitle(deQuien);
-        /*builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                // User clicked OK button
-            }
-        });*/
         dialog= builder.create();
         //Fondo banAzulSec pero en decimal
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.rgb(17, 29, 94)));

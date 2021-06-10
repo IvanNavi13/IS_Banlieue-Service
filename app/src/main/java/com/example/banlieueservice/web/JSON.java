@@ -62,11 +62,11 @@ public class JSON {
     }
 
     //el parámetro jsonStr es de tipo arreglo: [{}, {}]
-    public LinkedList<Map<String, String>> obtenerDatosArreglo(String jsonStr){
+    public LinkedList<Map<String, String>> obtenerDatosArreglo(String jsonStr, String llaveDeArreglo){
         LinkedList<Map<String, String>> listaMapas= new LinkedList<>();
 
         try{
-            JSONArray jsonArray= new JSONObject(jsonStr).getJSONArray("listaNegocios");
+            JSONArray jsonArray= new JSONObject(jsonStr).getJSONArray(llaveDeArreglo);
             JSONObject jobj;
             for(int i=0; i<jsonArray.length(); i++){
                 jobj= jsonArray.getJSONObject(i);

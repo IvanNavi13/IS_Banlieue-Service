@@ -67,7 +67,7 @@ public class PanCliDatosLocal extends Fragment implements View.OnClickListener, 
     public void onClick(View view){
         int pressed= view.getId();
         switch (pressed){
-            case R.id.btnRegistrar:
+            case R.id.btnRegistrar: //Botón modificar
                 if(modificar){
                     String nombre= etNombre.getText().toString();
                     String direc= etDireccion.getText().toString();
