@@ -182,6 +182,16 @@
 		
 		
 		/**************** BAJAS ****************/
+		///GENERALES
+		public function elimGeneral($tabla, $campo, $valorCampo){
+			return $this->ejecutarDeleteQuery(
+				"DELETE FROM $tabla WHERE $campo='$valorCampo'",
+				array($tabla, $campo, $valorCampo)
+			);
+		}
+		////////////
+
+		//ESPECÍFICOS
 		public function elimUsuario($idUsuario, $idPersona){
 			return $this->ejecutarDeleteQuery(
 				"CALL elimUsuario($idUsuario, $idPersona)",
@@ -207,13 +217,6 @@
 			return $this->ejecutarDeleteQuery(
 				"DELETE FROM Establecimiento WHERE idEst='$id'",
 				array($id)
-			);
-		}
-
-		public function elimEstablServicio($idEstablecimiento){ //Se debe llamar este método antes de eliminar un establecimiento
-			return $this->ejecutarDeleteQuery(
-				"DELETE FROM Tiene WHERE idEst='$idEstablecimiento'",
-				array($idEstablecimiento)
 			);
 		}
 
@@ -252,6 +255,7 @@
 			);
 		}
 
+		
 		public function ejecutarDeleteQuery($query, $arregloDeValores){
 			try{
 				$comando= ConectorBDD::getDB()->prepare($query);

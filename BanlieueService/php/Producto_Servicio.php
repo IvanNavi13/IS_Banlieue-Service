@@ -15,7 +15,7 @@
 			$json["nombre"],
 			$json["precio"]
 		);
-		$nvoProServ? responder("Nuevo servicio agregado, recargue la vista") : responder("ERROR: No se ha podido registrar el nuevo producto/servicio");
+		$nvoProServ? responder("Nuevo servicio agregado") : responder("ERROR: No se ha podido registrar el nuevo producto/servicio");
 		/*nuevoProdServ($id, $nombre, $descripcion, $precio)
 		relProServEstabl($idProserv, $idEstablecimiento)
 		nuevoTelDeEstablecimiento($idEstablecimiento, $telefono)*/
@@ -45,17 +45,17 @@
 			$json["descripcion"],
 			$json["precio"]
 		);
-		$modifLug? responder("Datos de producto/servicio modificados con éxito. Recargue la vista para ver los cambios.") : responder("No se han podido modificar datos.");
+		$modifLug? responder("Datos de producto/servicio modificados con éxito") : responder("No se han podido modificar datos.");
 	}
 
 
 	else if($_SERVER["REQUEST_METHOD"]=="PATCH"){
 		$json= stdObj_A_Array( json_decode( file_get_contents("php://input") ) );
-
+		
 		$elimDep= $bdd->elimCuerpoPedido($json["idProdserv"]);
 		$elimEst= $bdd->elimProdServ($json["idProdserv"]);
 
-		($elimDep && $elimEst)? responder("Eliminado con éxito, recargue la vista o vuelta a su inicio.") : responder("Error al eliminar");
+		($elimDep && $elimEst)? responder("Eliminado con éxito") : responder("Error al eliminar");
 	}
 
 	

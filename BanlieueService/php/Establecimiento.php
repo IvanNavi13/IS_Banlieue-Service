@@ -56,7 +56,7 @@
 	else if($_SERVER["REQUEST_METHOD"]=="PATCH"){
 		$json= stdObj_A_Array( json_decode( file_get_contents("php://input") ) );
 
-		$elimDep= $bdd->elimEstablServicio($json["idEst"]);
+		$elimDep= $bdd->elimGeneral("Producto_Servicio", "idEst", $json["idEst"]);
 		$elimEst= $bdd->elimEstablecimiento($json["idEst"]);
 
 		($elimDep && $elimEst)? responder("Eliminado con éxito, recargue la vista o vuelta a su inicio.") : responder("Error al eliminar");
