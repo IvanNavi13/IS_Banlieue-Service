@@ -139,21 +139,14 @@
 			);
 		}
 
-		public function nuevoProdServ($id, $nombre, $descripcion, $precio){
+		public function nuevoProdServ($id, $idEstablecimiento, $descripcion, $nombre, $precio){
 			return $this->ejecutarInsertQuery(
-				"INSERT INTO Producto_Servicio VALUES('$id', '$descripcion', '$nombre', '$precio')",
-				array($id, $nombre, $descripcion, $precio)
+				"INSERT INTO Producto_Servicio VALUES('$id', '$idEstablecimiento', '$descripcion', '$nombre', '$precio')",
+				array($id, $idEstablecimiento, $descripcion, $nombre, $precio)
 			);
 		}
 
-		public function relProServEstabl($idProserv, $idEstablecimiento){
-			return $this->ejecutarInsertQuery(
-				"INSERT INTO Tiene VALUES('$idProServ', '$idEstablecimiento')",
-				array($idProserv, $idEstablecimiento)
-			);
-		}
-
-		public function nuevoTelDeEstablecimiento($idEstablecimiento, $telefono){
+		public function nuevoTelDeEstablecimiento($idEstablecimiento, $telefono){ //////
 			return $this->ejecutarInsertQuery(
 				"INSERT INTO Establecimiento_telefono VALUES('$idEstablecimiento', '$telefono')",
 				array($idEstablecimiento, $telefono)
@@ -209,7 +202,7 @@
 				array($idRepartidor, $idPersona)
 			);
 		}
-
+		
 		public function elimEstablecimiento($id){
 			return $this->ejecutarDeleteQuery(
 				"DELETE FROM Establecimiento WHERE idEst='$id'",
@@ -217,7 +210,7 @@
 			);
 		}
 
-		public function elimRelacionEstablServicio($idEstablecimiento){ //Se debe llamar este método antes de eliminar un establecimiento
+		public function elimEstablServicio($idEstablecimiento){ //Se debe llamar este método antes de eliminar un establecimiento
 			return $this->ejecutarDeleteQuery(
 				"DELETE FROM Tiene WHERE idEst='$idEstablecimiento'",
 				array($idEstablecimiento)
@@ -231,17 +224,10 @@
 			);
 		}
 
-		public function elimProdServ($id, $nombre, $descripcion, $precio){
+		public function elimProdServ($idProserv){
 			return $this->ejecutarDeleteQuery(
-				"INSERT INTO Producto_Servicio VALUES('$id', '$descripcion', '$nombre', '$precio')",
-				array($id, $nombre, $descripcion, $precio)
-			);
-		}
-
-		public function elimProServEstabl($idProserv, $idEstablecimiento){
-			return $this->ejecutarDeleteQuery(
-				"INSERT INTO Tiene VALUES('$idProServ', '$idEstablecimiento')",
-				array($idProserv, $idEstablecimiento)
+				"DELETE FROM Producto_Servicio WHERE idProdServ='$idProserv'",
+				array($idProserv)
 			);
 		}
 
@@ -259,10 +245,10 @@
 			);
 		}
 
-		public function elimCuerpoPedido($idPedido, $idDiscriminante, $idProserv, $cantidad){
+		public function elimCuerpoPedido($idProserv){
 			return $this->ejecutarDeleteQuery(
-				"INSERT INTO CuerpoPedido VALUES('$idPedido', '$idDiscriminante', '$idProserv', '$cantidad')",
-				array($idPedido, $idDiscriminante, $idProserv, $cantidad)
+				"DELETE FROM CuerpoPedido WHERE idProdServ='$idProserv'",
+				array($idProserv)
 			);
 		}
 
@@ -278,11 +264,28 @@
 
 
 		/**************** MODIFICACIONES ****************/
-		public function modifPersona($id, $nombre, $apaterno, $amaterno, $telefono, $edad, $correo, $contrasena){
+		public function modifDatosPersonales($id, $nombres, $apaterno, $amaterno, $telefono, $fechanac, $modPer){
+			//Preguntar si se modifica el nombre o no
+			if($modPer){
+				return $this->ejecutarUpdateQuery(
+					"UPDATE Persona SET nombres='$nombres', apaterno='$apaterno', amaterno='$amaterno', telefono='$telefono', fechanac='$fechanac' WHERE idPersona='$id'",
+					array($id, $nombres, $apaterno, $amaterno, $telefono, $fechanac)
+				);
+			}
+			else{
+				return $this->ejecutarUpdateQuery(
+					"UPDATE Persona SET telefono='$telefono', fechanac='$fechanac' WHERE idPersona='$id'",
+					array($id, $telefono, $fechanac)
+				);
+			}
+		}
+
+		public function modifDatosAcceso($id, $correo, $contrasena){
 			return $this->ejecutarUpdateQuery(
-				"UPDATE Persona SET nombre='$nombre', apaterno='$apaterno', amaterno='$amaterno', telefono='$telefono', edad='$edad', correo='$correo', contrasena='$contrasena' WHERE idPersona='$id'",
-				array($id, $nombre, $apaterno, $amaterno, $telefono, $edad, $correo, $contrasena)
+				"UPDATE Persona SET correo='$correo', contrasena='$contrasena' WHERE idPersona='$id'",
+				array($id, $correo, $contrasena)
 			);
+			
 		}
 
 		///************************
@@ -300,10 +303,10 @@
 			);
 		}*/
 
-		public function modifRepartidor($idPersona, $idRepartidor, $CURP){
+		public function modifRepartidor($idRepartidor, $CURP){
 			return $this->ejecutarUpdateQuery(
 				"UPDATE Repartidor SET CURP='$CURP' WHERE idRep='$idRepartidor'",
-				array($idPersona, $idRepartidor, $CURP)
+				array($idRepartidor, $CURP)
 			);
 		}
 

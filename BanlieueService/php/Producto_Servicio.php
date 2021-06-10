@@ -7,18 +7,15 @@
 
 	if($_SERVER["REQUEST_METHOD"]=="POST"){
 		$json= stdObj_A_Array( json_decode( file_get_contents("php://input") ) );
-
-		//responder($json);
-		$nvoLug= $bdd->nuevoEstablecimiento(
-			$herr->consecutivo( $bdd->selColumnaDeTablaOrdenado("idEst", "Establecimiento", "idEst", "ASC"), "idEst" ),
-			$json["idCliente"], //ID de cliente
+		
+		$nvoProServ= $bdd->nuevoProdServ(
+			$herr->consecutivo( $bdd->selColumnaDeTablaOrdenado("idProdserv", "Producto_Servicio", "idProdserv", "ASC"), "idProdserv" ),
+			$json["idEst"],
+			$json["descripcion"],
 			$json["nombre"],
-			$json["giro"],
-			$json["direccion"],
-			$json["apertura"],
-			$json["cierre"]
+			$json["precio"]
 		);
-		$nvoLug? responder("Su nuevo negocio se registró correctamente") : responder("No se ha podido registrar su negocio");
+		$nvoProServ? responder("Nuevo servicio agregado, recargue la vista") : responder("ERROR: No se ha podido registrar el nuevo producto/servicio");
 		/*nuevoProdServ($id, $nombre, $descripcion, $precio)
 		relProServEstabl($idProserv, $idEstablecimiento)
 		nuevoTelDeEstablecimiento($idEstablecimiento, $telefono)*/
@@ -28,8 +25,9 @@
 
 	else if($_SERVER["REQUEST_METHOD"]=="GET"){
 		$json= stdObj_A_Array( json_decode( $_GET["json"] ) );
+		//responder($json);
 
-		$lista["listaNegocios"]= $bdd->selColumnaDeTablaEspecificado("*", "Establecimiento", "idCli", $json["idCliente"]);
+		$lista["listaServicios"]= $bdd->selColumnaDeTablaEspecificado("*", "Producto_Servicio", "idEst", $json["idEst"]);
 		responder( 
 			 json_encode($lista)
 		);
@@ -40,24 +38,22 @@
 	else if($_SERVER["REQUEST_METHOD"]=="PUT"){
 		$json= stdObj_A_Array( json_decode( file_get_contents("php://input") ) );
 
-		$bdd->modifEstablecimiento($json["idEst"], "no", "no", "no", "no", "no");
-		$modifLug= $bdd->modifEstablecimiento(
-			$json["idEst"],
+		$bdd->modifProdServ($json["idProdserv"], "no", "no", "no");
+		$modifLug= $bdd->modifProdServ(
+			$json["idProdserv"],
 			$json["nombre"],
-			$json["giro"],
-			$json["direccion"],
-			$json["apertura"],
-			$json["cierre"]
+			$json["descripcion"],
+			$json["precio"]
 		);
-		$modifLug? responder("Datos de local modificados con éxito. Recargue la vista para ver los cambios.") : responder("No se han podido modificar datos.");
+		$modifLug? responder("Datos de producto/servicio modificados con éxito. Recargue la vista para ver los cambios.") : responder("No se han podido modificar datos.");
 	}
 
 
 	else if($_SERVER["REQUEST_METHOD"]=="PATCH"){
 		$json= stdObj_A_Array( json_decode( file_get_contents("php://input") ) );
 
-		$elimDep= $bdd->elimEstablServicio($json["idEst"]);
-		$elimEst= $bdd->elimEstablecimiento($json["idEst"]);
+		$elimDep= $bdd->elimCuerpoPedido($json["idProdserv"]);
+		$elimEst= $bdd->elimProdServ($json["idProdserv"]);
 
 		($elimDep && $elimEst)? responder("Eliminado con éxito, recargue la vista o vuelta a su inicio.") : responder("Error al eliminar");
 	}
