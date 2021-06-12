@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    >
+
+    <LinearLayout
+        android:layout_width="70dp"
+        android:layout_height="100dp"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageButton
+            android:id="@+id/listaEliminarElemento"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:adjustViewBounds="true"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_delete"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            >
+
+            <TextView
+                android:id="@+id/listaNombre"
+                android:layout_width="170dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center"
+                android:text="Nombre"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <TextView
+                android:id="@+id/listaTotal"
+                android:layout_width="85dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center"
+                android:text="Descripción"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            >
+
+            <Button android:id="@+id/listaDisminuyeCant"
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:text="-"
+                android:layout_gravity="center_horizontal"
+                android:textSize="20dp"
+                android:backgroundTint="@color/banCyan"
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY"
+                />
+
+            <EditText
+                android:id="@+id/listaCantidad"
+                android:layout_width="115dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:hint="Cantidad"
+                android:inputType="number"
+                android:textColor="@color/white"
+                android:theme="@style/cajasTexto"
+                />
+
+            <Button android:id="@+id/listaAumentaCant"
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:text="+"
+                android:layout_gravity="center_horizontal"
+                android:textSize="20dp"
+                android:backgroundTint="@color/banCyan"
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY"
+                />
+
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>

@@ -11,8 +11,8 @@ import java.util.Map;
 
 public class JSON {
     private JSONObject json;
-    private static JSONArray array;
-    private static int indiceArray;
+    private JSONArray array;
+    private int indiceArray;
 
 
     public JSON(){
@@ -84,11 +84,11 @@ public class JSON {
     }
 
     //Agregar objetos JSON al arreglo
-    /*public static void agregarObjeto(JSON obj){
+    public void agregarObjeto(JSON obj){
         array.put(obj.json);
     }
 
-    public static String obtArregloJSON(){
+    public String strArregloJSON(){
         return array.toString();
-    }*/
+    }
 }

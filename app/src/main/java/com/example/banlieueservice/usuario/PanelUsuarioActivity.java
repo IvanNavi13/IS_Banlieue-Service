@@ -1,7 +1,6 @@
 package com.example.banlieueservice.usuario;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -42,7 +41,7 @@ public class PanelUsuarioActivity extends AppCompatActivity implements Navigatio
         cargarNavegador();
 
         //Por defecto ir a la actividad del mapa
-        irAFragment(new PanUsHome(), getString(R.string.usInicio));
+        irAFragment(new PanUsHome(), getString(R.string.home));
     }
 
     //OPCIONES ÍCONO HAMBURGUESA
@@ -52,7 +51,7 @@ public class PanelUsuarioActivity extends AppCompatActivity implements Navigatio
 
         switch(menuSelected){
             case R.id.itemUsHome:
-                irAFragment(new PanUsHome(), getString(R.string.usInicio));
+                irAFragment(new PanUsInicio(datosUsusario), getString(R.string.usInicio));
                 break;
 
             case R.id.itemUsModifDatosPer:
@@ -103,6 +102,7 @@ public class PanelUsuarioActivity extends AppCompatActivity implements Navigatio
             @Override
             public void onJsonSuccess(String jsonResult) {
                 datosUsusario= json.obtenerDatos(jsonResult);
+                System.out.println("CORREO PANELACTIVITY: "+datosUsusario.get("correo"));
             }
 
             @Override
@@ -139,12 +139,16 @@ public class PanelUsuarioActivity extends AppCompatActivity implements Navigatio
         drawerLayout.getLayoutParams();
         toggle.syncState();
 
-        navView.getMenu().getItem(0).setChecked(true);
+        //navView.getMenu().getItem(0).setChecked(true);
     }
 
     private void initComponents(){
         navView= (NavigationView) findViewById(R.id.navViewUs);
         navView.setNavigationItemSelectedListener(this);
 
+    }
+
+    public String obtCorreoUsuario(){
+        return datosUsusario.get("correo");
     }
 }

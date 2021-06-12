@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
@@ -91,11 +92,11 @@ public class MapaActivity extends Fragment /*implements OnMapReadyCallback, Goog
             @Override
             public void onMapReady(GoogleMap googleMap) {
                 mMap = googleMap;
-                //mMap.setOnMapClickListener(this);
+                /*//mMap.setOnMapClickListener(this);
                 // Add a marker in Sydney and move the camera
                 LatLng sydney = new LatLng(lat, lon);
                 mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-                mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+                mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));*/
 
                 //Atributos del mapa
                 UiSettings ajustesMapa= mMap.getUiSettings();
@@ -104,10 +105,10 @@ public class MapaActivity extends Fragment /*implements OnMapReadyCallback, Goog
                 ajustesMapa.setCompassEnabled(true);
                 ajustesMapa.setZoomGesturesEnabled(true);
 
-                locationStart();
+                ubicacionActual();
 
 
-                mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+                /*mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
                     @Override
                     public void onMapClick(@NonNull LatLng latLng) {
                         try{
@@ -124,7 +125,7 @@ public class MapaActivity extends Fragment /*implements OnMapReadyCallback, Goog
                             new Mensaje(ctx).mostrarToast("Algo salió mal:\n"+ex.getMessage(), 'l');
                         }
                     }
-                });
+                });*/
             }
         });
 
@@ -170,7 +171,7 @@ public class MapaActivity extends Fragment /*implements OnMapReadyCallback, Goog
         ajustesMapa.setMapToolbarEnabled(true);
         ajustesMapa.setZoomGesturesEnabled(true);
 
-        locationStart();
+        ubicacionActual();
     }*/
 
     /*@Override
@@ -195,11 +196,19 @@ public class MapaActivity extends Fragment /*implements OnMapReadyCallback, Goog
         //new Mensaje(this).mostrarToast(ll.toString(), 'l');
         //MarkerOptions mo= new MarkerOptions().position(ll).title("Marker here");
         //mMap.addMarker(mo);
-        mMap.addMarker(new MarkerOptions().position(ll).title("Marker here"));
+        mMap.addMarker(new MarkerOptions().position(ll).title("Mi ubicación"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(ll));
     }
 
-    private void locationStart(){
+    private void cambiarMarca(LatLng ll, String marca){
+        //new Mensaje(this).mostrarToast(ll.toString(), 'l');
+        //MarkerOptions mo= new MarkerOptions().position(ll).title("Marker here");
+        //mMap.addMarker(mo);
+        mMap.addMarker(new MarkerOptions().position(ll).title(marca));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(ll));
+    }
+
+    public void ubicacionActual(){
         LocationManager lm = (LocationManager) act.getSystemService(Context.LOCATION_SERVICE);
         Localizacion l = new Localizacion();
         l.setActivity(this);
@@ -224,28 +233,53 @@ public class MapaActivity extends Fragment /*implements OnMapReadyCallback, Goog
         lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, (LocationListener) l);
     }
 
-    public void setLocation(Location loc) {
+    private void definirUbicacion(Location loc) {
         lat = loc.getLatitude();
         lon = loc.getLongitude();
         if (lat != 0.0 && lon != 0.0) {
             try {
                 Geocoder geocoder = new Geocoder(ctx, Locale.getDefault());
                 List<Address> list = geocoder.getFromLocation(lat, lon, 1);
+
                 if (!list.isEmpty()) {
-                    Address DirCalle = list.get(0);
+                    Address dirCalle = list.get(0);
                     if (bndPrimeravez) {
                         cambiarMarca(new LatLng(lat, lon));
-                        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lat, lon), 90));
-                        new Mensaje(ctx).mostrarToast("ACTUAL:\n" + DirCalle.getAddressLine(0), 'l');
+                        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lat, lon), 18)); //Valor en [2, 21]
+                        new Mensaje(ctx).mostrarToast("ACTUAL:\n" + dirCalle.getAddressLine(0), 'l');
                         bndPrimeravez = false;
                     }
                 }
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
     }
 
+
+    public void definirUbicacion(String nombreEstabl, String direccion) {
+        try {
+            Geocoder geocoder = new Geocoder(ctx, Locale.getDefault());
+            List<Address> list = geocoder.getFromLocationName(direccion, 1);
+
+            if (!list.isEmpty()) {
+                Address dirCalle = list.get(0);
+                lat= dirCalle.getLatitude();
+                lon= dirCalle.getLongitude();
+
+                cambiarMarca(new LatLng(lat, lon), nombreEstabl);
+                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lat, lon), 18)); //Valor en [2, 21]
+                new Mensaje(ctx).mostrarToast(nombreEstabl+":\n" + dirCalle.getAddressLine(0), 'l');
+                bndPrimeravez = false;
+
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
 
     //CLASE ANIDADA
     public class Localizacion implements LocationListener {
@@ -262,7 +296,7 @@ public class MapaActivity extends Fragment /*implements OnMapReadyCallback, Goog
             loc.getLongitude();
             String sLatitud = String.valueOf(loc.getLatitude());
             String sLongitud = String.valueOf(loc.getLongitude());
-            activity.setLocation(loc);
+            activity.definirUbicacion(loc);
         }
         @Override
         public void onProviderDisabled(String proveedor) {

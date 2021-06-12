@@ -1,6 +1,7 @@
 package com.example.banlieueservice.cliente;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +24,7 @@ import com.example.banlieueservice.herramientas.ElementoLista;
 import com.example.banlieueservice.herramientas.Mensaje;
 import com.example.banlieueservice.interfaces.FragmentCommunicator;
 import com.example.banlieueservice.interfaces.VolleyCallBack;
+import com.example.banlieueservice.usuario.CreadorDePedidos;
 import com.example.banlieueservice.web.JSON;
 import com.example.banlieueservice.web.ServicioWeb;
 
@@ -109,7 +111,7 @@ public class PanCliServsLocal extends Fragment implements View.OnClickListener, 
             new PanCliModifServicio(idProdserv, nombreEstablecimiento, muestraDatosServ, this).show(act.getSupportFragmentManager(), "Servicio");
         }
         else
-            mje.mostrarDialog(el.obtDescripcion()+"\n\nPor solo $"+precioStr, el.obtNombre(), (AppCompatActivity)act);
+            mje.mostrarDialog(el.obtDescripcion()+"\n\nPrecio: $"+precioStr, el.obtNombre(), (AppCompatActivity)act);
     }
 
     @Override
@@ -166,8 +168,8 @@ public class PanCliServsLocal extends Fragment implements View.OnClickListener, 
                 if(obj!=null){
                     TextView titulo= (TextView) v.findViewById(R.id.listaNombre);
                     titulo.setText( obj.obtNombre() );
-                    TextView precio= (TextView) v.findViewById(R.id.listaPrecio);
-                    precio.setText( obj.obtDescripcion() );
+                    TextView desc= (TextView) v.findViewById(R.id.listaDesc);
+                    desc.setText( obj.obtDescripcion() );
                     ImageView imagen= (ImageView) v.findViewById(R.id.listaImagen);
                     imagen.setImageResource( obj.obtImagen() );
                 }

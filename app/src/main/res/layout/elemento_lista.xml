@@ -26,15 +26,19 @@
             android:id="@+id/listaNombre"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
             android:text="Nombre"
             android:textAppearance="?android:attr/textAppearanceLarge"
             />
 
         <TextView
-            android:id="@+id/listaPrecio"
+            android:id="@+id/listaDesc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Precio"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center"
+            android:text="Descripción"
             android:textAppearance="?android:attr/textAppearanceLarge"
             />
 

@@ -54,6 +54,11 @@ public class ServicioWeb {
         altaModifElim(jsonStr, vcb, Request.Method.POST);
     }
 
+    public void nuevoPedido(String jsonStr, VolleyCallBack vcb){
+        definirURL("http://"+ip+"/BanlieueService/php/Pedido.php");
+        altaModifElim(jsonStr, vcb, Request.Method.POST);
+    }
+
     public void infoPersona(String jsonStr, VolleyCallBack vcb){
         definirURL("http://"+ip+"/BanlieueService/php/Persona.php?json="+jsonStr);
         consulta(vcb);

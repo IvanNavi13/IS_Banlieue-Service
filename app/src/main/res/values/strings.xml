@@ -5,6 +5,9 @@
     <!--string name="google_maps_key">AIzaSyC-1JdHChmCwEBS72G4bUcJoTUQIOI-2ds</string-->
 
     <!--TÍTULOS DE NAVEGACIÓN-->
+    <string name="bienvenida">Bienvenid@ a Banlieue-Service</string>
+    <string name="home">IPN-ESCOM</string>
+
     <!--Usuario-->
     <string name="usInicio">Inicio</string>
     <string name="usModifDatosPer">Modificación de datos personales</string>
