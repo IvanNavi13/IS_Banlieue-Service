@@ -16,10 +16,6 @@
 			$json["precio"]
 		);
 		$nvoProServ? responder("Nuevo servicio agregado") : responder("ERROR: No se ha podido registrar el nuevo producto/servicio");
-		/*nuevoProdServ($id, $nombre, $descripcion, $precio)
-		relProServEstabl($idProserv, $idEstablecimiento)
-		nuevoTelDeEstablecimiento($idEstablecimiento, $telefono)*/
-
 	}
 
 

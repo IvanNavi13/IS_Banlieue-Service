@@ -153,16 +153,16 @@
 			);
 		}
 
-		public function registrarPedido($idPedido, $idUsuario, $idRepartidor, $fecha, $hora, $direccion, $hecho){
+		public function registrarPedido($idPedido, $idUsuario, $fecha, $hora, $direccion, $hecho){
 			return $this->ejecutarInsertQuery(
-				"INSERT INTO Pedido VALUES('$idPedido', '$idUsuario', '$idRepartidor', '$hora', '$direccion', '$hecho', '$fecha')",
-				array($idPedido, $idUsuario, $idRepartidor, $fecha, $hora, $direccion, $hecho)
+				"INSERT INTO Pedido VALUES('$idPedido', '$idUsuario', '$hora', '$direccion', '$hecho', '$fecha')",
+				array($idPedido, $idUsuario, $fecha, $hora, $direccion, $hecho)
 			);
 		}
 
 		public function registrarCuerpoPedido($idPedido, $idDiscriminante, $idProserv, $cantidad){
 			return $this->ejecutarInsertQuery(
-				"INSERT INTO CuerpoPedido VALUES('$idPedido', '$idDiscriminante', '$idProserv', '$cantidad')",
+				"INSERT INTO CuerpoPedido VALUES('$idPedido', '$idDiscriminante', null, '$idProserv', '$cantidad')",
 				array($idPedido, $idDiscriminante, $idProserv, $cantidad)
 			);
 		}

@@ -92,14 +92,12 @@ CREATE TABLE Pedido
 (
   idPed INT NOT NULL,
   idUs INT NOT NULL,
-  idRep INT NOT NULL,
   hora TIME NOT NULL,
   direccion TEXT NOT NULL,
   hecho INT(1) NOT NULL,
   fecha DATE NOT NULL,
   PRIMARY KEY (idPed),
-  FOREIGN KEY (idUs) REFERENCES Usuario(idUs),
-  FOREIGN KEY (idRep) REFERENCES Repartidor(idRep)
+  FOREIGN KEY (idUs) REFERENCES Usuario(idUs)
 );
 
 DROP TABLE IF EXISTS CuerpoPedido;
@@ -107,9 +105,11 @@ CREATE TABLE CuerpoPedido
 (
   idPed INT NOT NULL,
   idDiscr INT NOT NULL,
+  idRep INT,
   idProdserv INT NOT NULL,
   cantidad INT NOT NULL,
-  PRIMARY KEY (idDiscr),
+  PRIMARY KEY (idPed, idDiscr),
   FOREIGN KEY (idPed) REFERENCES Pedido(idPed),
-  FOREIGN KEY (idProdserv) REFERENCES Producto_Servicio(idProdserv)
+  FOREIGN KEY (idProdserv) REFERENCES Producto_Servicio(idProdserv),
+  FOREIGN KEY (idRep) REFERENCES Repartidor(idRep)
 );

@@ -19,17 +19,21 @@
 			$json["cierre"]
 		);
 		$nvoLug? responder("Su nuevo negocio se registró correctamente") : responder("No se ha podido registrar su negocio");
-		/*nuevoProdServ($id, $nombre, $descripcion, $precio)
-		relProServEstabl($idProserv, $idEstablecimiento)
-		nuevoTelDeEstablecimiento($idEstablecimiento, $telefono)*/
-
 	}
 
 
 	else if($_SERVER["REQUEST_METHOD"]=="GET"){
 		$json= stdObj_A_Array( json_decode( $_GET["json"] ) );
 
-		$lista["listaNegocios"]= $bdd->selColumnaDeTablaEspecificado("*", "Establecimiento", "idCli", $json["idCliente"]);
+		if($json["todo"]=="s"){ //Seleccionar todos los establecimientos (usado por el usuario)
+			$lista["listaNegocios"]= $bdd->selColumnaDeTabla("*", "Establecimiento");
+		}
+		else if($json["est"]=="s"){
+			$lista= $bdd->selColumnaDeTablaEspecificado("*", "Establecimiento", "idEst", $json["idEst"])[0];
+		}
+		else{ //Seleccionar los establecimientos propios (usado por el cliente)
+			$lista["listaNegocios"]= $bdd->selColumnaDeTablaEspecificado("*", "Establecimiento", "idCli", $json["idCliente"]);
+		}
 		responder( 
 			 json_encode($lista)
 		);
