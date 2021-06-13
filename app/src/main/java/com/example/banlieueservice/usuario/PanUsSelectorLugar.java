@@ -1,15 +1,11 @@
 package com.example.banlieueservice.usuario;
 
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -17,20 +13,16 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
-import androidx.viewpager.widget.ViewPager;
 
 import com.example.banlieueservice.R;
 import com.example.banlieueservice.actividades.MapaActivity;
-import com.example.banlieueservice.cliente.PanCliModifServicio;
 import com.example.banlieueservice.herramientas.AdaptadorLista;
 import com.example.banlieueservice.herramientas.ElementoLista;
 import com.example.banlieueservice.herramientas.Mensaje;
 import com.example.banlieueservice.interfaces.FragmentCommunicator;
 import com.example.banlieueservice.interfaces.VolleyCallBack;
-import com.example.banlieueservice.repartidor.PanRepHome;
 import com.example.banlieueservice.web.JSON;
 import com.example.banlieueservice.web.ServicioWeb;
-import com.google.android.material.tabs.TabLayout;
 
 import java.util.LinkedList;
 import java.util.Map;

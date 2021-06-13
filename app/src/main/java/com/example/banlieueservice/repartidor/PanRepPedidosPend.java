@@ -26,7 +26,7 @@ import com.example.banlieueservice.web.ServicioWeb;
 import java.util.LinkedList;
 import java.util.Map;
 
-public class PanRepPedidosReal extends Fragment implements FragmentCommunicator, AdapterView.OnItemClickListener {
+public class PanRepPedidosPend extends Fragment implements FragmentCommunicator, AdapterView.OnItemClickListener {
     private Context ctx;
     private FragmentActivity act;
     private Button btn;
@@ -66,7 +66,7 @@ public class PanRepPedidosReal extends Fragment implements FragmentCommunicator,
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         PedidoDisponible pedidoDisponible= new PedidoDisponible(listaPedidosDisponibles.get(position).get("idPed"));
         pedidoDisponible.sendData(datosRepartidor);
-        pedidoDisponible.sendSingleData("real"); //se avisa que es pedido pendiente
+        pedidoDisponible.sendSingleData("pend"); //se avisa que es pedido pendiente
         pedidoDisponible.show(act.getSupportFragmentManager(), "Disponible");
     }
 
@@ -97,7 +97,7 @@ public class PanRepPedidosReal extends Fragment implements FragmentCommunicator,
 
     private void cargarPedidos(){
         JSON json= new JSON();
-        json.agregarDato("pedido", "real");
+        json.agregarDato("pedido", "pend");
         json.agregarDato("idRepartidor", datosRepartidor.get("idPartic"));
         ServicioWeb.obtenerInstancia(ctx).pedidos(json.strJSON(), new VolleyCallBack() {
             @Override
@@ -107,7 +107,7 @@ public class PanRepPedidosReal extends Fragment implements FragmentCommunicator,
 
             @Override
             public void onJsonSuccess(String jsonResult) {
-                listaPedidosDisponibles= json.obtenerDatosArreglo(jsonResult, "listaPedidosRealizados");
+                listaPedidosDisponibles= json.obtenerDatosArreglo(jsonResult, "listaPedidosTomados");
 
                 LinkedList<ElementoListaPedidos> servicios= new LinkedList<>();
                 for(int i=0; i<listaPedidosDisponibles.size(); i++) {

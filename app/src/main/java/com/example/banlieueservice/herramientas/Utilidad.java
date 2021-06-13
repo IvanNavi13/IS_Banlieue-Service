@@ -4,6 +4,8 @@ import java.util.LinkedHashMap;
 
 public class Utilidad {
     public static String strAcercaDe=
+            "Instituto Politécnico Nacional\n\n" +
+            "Escuela Superior de Cómputo\n\n\n" +
             "Ingeniería de software, 3CM11\n\n" +
             "Profa: Cordero López Martha Rosa\n\n"+
             "Equipo:\n"+

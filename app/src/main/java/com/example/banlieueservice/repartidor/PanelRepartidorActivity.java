@@ -1,7 +1,6 @@
 package com.example.banlieueservice.repartidor;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -17,10 +16,6 @@ import com.example.banlieueservice.actividades.MainActivity;
 import com.example.banlieueservice.herramientas.Mensaje;
 import com.example.banlieueservice.herramientas.Utilidad;
 import com.example.banlieueservice.interfaces.VolleyCallBack;
-import com.example.banlieueservice.repartidor.PanRepElimCta;
-import com.example.banlieueservice.repartidor.PanRepHome;
-import com.example.banlieueservice.repartidor.PanRepModifDatosAcc;
-import com.example.banlieueservice.repartidor.PanRepModifDatosPer;
 import com.example.banlieueservice.web.JSON;
 import com.example.banlieueservice.web.ServicioWeb;
 import com.google.android.material.navigation.NavigationView;
@@ -57,7 +52,7 @@ public class PanelRepartidorActivity extends AppCompatActivity implements Naviga
 
         switch(menuSelected){
             case R.id.itemRepHome:
-                irAFragment(new PanRepHome(), getString(R.string.usInicio));
+                irAFragment(new PanRepInicio(datosRepartidor), getString(R.string.usInicio));
                 break;
 
             case R.id.itemRepModifDatosPer:
@@ -135,7 +130,7 @@ public class PanelRepartidorActivity extends AppCompatActivity implements Naviga
         drawerLayout.getLayoutParams();
         toggle.syncState();
 
-        navView.getMenu().getItem(0).setChecked(true);
+        //navView.getMenu().getItem(0).setChecked(true);
     }
 
     private void irAFragment(Fragment fragment, String titulo){

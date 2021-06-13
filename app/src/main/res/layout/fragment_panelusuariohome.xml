@@ -3,17 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
-
-    <TextView
-        android:layout_marginTop="60dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/bienvenida"
-        android:gravity="center"
-        android:layout_gravity="center_horizontal"
-        android:textColor="@color/banCyan"
-        android:textSize="60dp"
-        />
+    android:orientation="vertical"
+    android:background="@drawable/fondo_bienvenida">
 
 </LinearLayout>

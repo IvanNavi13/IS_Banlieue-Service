@@ -57,34 +57,6 @@
     </RelativeLayout>
 
 
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        tools:ignore="MissingConstraints"
-        app:layout_constraintBottom_toBottomOf="@id/contenedorRelativo">
-
-        <Button android:id="@+id/btnVistaSat"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Botón"
-            android:layout_gravity="center_horizontal"
-            android:textSize="20dp"
-            android:backgroundTint="@color/banAzul"
-            />
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Otro botón :v"
-            android:layout_gravity="center_horizontal"
-            android:textSize="20dp"
-            android:backgroundTint="@color/banAzul"
-            />
-
-    </LinearLayout>
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>
 
 <!--

@@ -19,9 +19,7 @@ import androidx.appcompat.app.AppCompatDialogFragment;
 import androidx.fragment.app.FragmentActivity;
 
 import com.example.banlieueservice.R;
-import com.example.banlieueservice.actividades.MainActivity;
 import com.example.banlieueservice.herramientas.AdaptadorLista;
-import com.example.banlieueservice.herramientas.ElementoLista;
 import com.example.banlieueservice.herramientas.Mensaje;
 import com.example.banlieueservice.interfaces.FragmentCommunicator;
 import com.example.banlieueservice.interfaces.VolleyCallBack;
@@ -170,8 +168,8 @@ public class VistaPedidoActual extends AppCompatDialogFragment implements Fragme
                             double actual= Double.parseDouble(cantidad.getText().toString());
                             if(actual>1) {
                                 cantidad.setText(String.valueOf((int)actual - 1));
-                                obj.defCantidad(String.valueOf((int)actual+1));
-                                desc.setText("$"+Double.parseDouble(obj.obtPrecio())*(actual+1) );
+                                obj.defCantidad(String.valueOf((int)actual-1));
+                                desc.setText("$"+Double.parseDouble(obj.obtPrecio())*(actual-1) );
                             }
                             else{
                                 desc.setText("$"+Double.parseDouble(obj.obtPrecio()));

@@ -74,6 +74,12 @@ public class ServicioWeb {
         consulta(vcb);
     }
 
+    //tipoPedido: 'd'->Disponibles, 'p'->Pendientes, 'r'->Realizados
+    public void pedidos(String jsonStr, VolleyCallBack vcb){
+        definirURL("http://"+ip+"/BanlieueService/php/Pedido.php?json="+jsonStr);
+        consulta(vcb);
+    }
+
     public void iniciarSesion(String jsonStr, VolleyCallBack vcb){
         definirURL("http://"+ip+"/BanlieueService/php/IniciarSesion.php?json="+jsonStr);
         consulta(/*jsonStr, */vcb);
@@ -113,6 +119,12 @@ public class ServicioWeb {
     public void eliminarServicio(String jsonStr, VolleyCallBack vcb){
         definirURL("http://"+ip+"/BanlieueService/php/Producto_Servicio.php");
         altaModifElim(jsonStr, vcb, Request.Method.PATCH); //Con DELETE no funcionó así que usamos PATCH
+    }
+
+    //El repartidor toma un pedido
+    public void tomarPedido(String jsonStr, VolleyCallBack vcb){
+        definirURL("http://"+ip+"/BanlieueService/php/Pedido.php");
+        altaModifElim(jsonStr, vcb, Request.Method.PUT);
     }
 
 

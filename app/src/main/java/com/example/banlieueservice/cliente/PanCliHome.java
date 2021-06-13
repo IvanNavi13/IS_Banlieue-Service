@@ -4,17 +4,13 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Spinner;
 
-import androidx.annotation.ArrayRes;
 import androidx.annotation.LayoutRes;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -25,9 +21,7 @@ import com.example.banlieueservice.R;
 import com.example.banlieueservice.herramientas.Mensaje;
 import com.example.banlieueservice.interfaces.FragmentCommunicator;
 import com.example.banlieueservice.interfaces.VolleyCallBack;
-import com.example.banlieueservice.repartidor.PanRepHome;
-import com.example.banlieueservice.repartidor.PanRepPedidosDisp;
-import com.example.banlieueservice.repartidor.PanRepPedidosReal;
+import com.example.banlieueservice.repartidor.PanRepInicio;
 import com.example.banlieueservice.web.JSON;
 import com.example.banlieueservice.web.ServicioWeb;
 import com.google.android.material.tabs.TabLayout;
@@ -46,7 +40,7 @@ public class PanCliHome extends Fragment implements OnItemSelectedListener, Frag
     private Mensaje mje;
     private LinkedList<Map<String, String>> infoLocales;
     private Map<String, String> datosCliente;
-    private PanRepHome.AdaptadorDePestanas adaptadorDePestanas;
+    private PanRepInicio.AdaptadorDePestanas adaptadorDePestanas;
     private ViewPager viewPager;
     private PanCliDatosLocal panCliDatosLocal;
     private PanCliServsLocal panCliServsLocal;
@@ -78,7 +72,7 @@ public class PanCliHome extends Fragment implements OnItemSelectedListener, Frag
         titulos.add("Productos/Servicios que ofrece");
         contPestanas.add(panCliServsLocal);
 
-        adaptadorDePestanas = new PanRepHome.AdaptadorDePestanas(getChildFragmentManager(), titulos, contPestanas);
+        adaptadorDePestanas = new PanRepInicio.AdaptadorDePestanas(getChildFragmentManager(), titulos, contPestanas);
         viewPager = getView().findViewById(R.id.vpPager);
         viewPager.setAdapter(adaptadorDePestanas);
         TabLayout tabLayout = getView().findViewById(R.id.tab_layout);

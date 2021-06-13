@@ -17,8 +17,7 @@ import com.example.banlieueservice.R;
 
 import com.example.banlieueservice.actividades.MapaActivity;
 import com.example.banlieueservice.herramientas.Mensaje;
-import com.example.banlieueservice.interfaces.FragmentCommunicator;
-import com.example.banlieueservice.repartidor.PanRepHome;
+import com.example.banlieueservice.repartidor.PanRepInicio;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.LinkedList;
@@ -31,7 +30,7 @@ public class PanUsInicio extends Fragment {
     private FragmentActivity act;
     private Map<String, String> datosUsuario;
 
-    private PanRepHome.AdaptadorDePestanas adaptadorDePestanas;
+    private PanRepInicio.AdaptadorDePestanas adaptadorDePestanas;
     private ViewPager viewPager;
 
     public PanUsInicio(Map<String, String> datosUsuario){
@@ -62,7 +61,7 @@ public class PanUsInicio extends Fragment {
         selectorDeLugar.sendData(datosUsuario);
         contPestanas.add( selectorDeLugar );
 
-        adaptadorDePestanas = new PanRepHome.AdaptadorDePestanas(getChildFragmentManager(), nombres, contPestanas);
+        adaptadorDePestanas = new PanRepInicio.AdaptadorDePestanas(getChildFragmentManager(), nombres, contPestanas);
         viewPager = getView().findViewById(R.id.vpPager);
         //viewPager.setBackground(new ColorDrawable(Color.rgb(254, 205, 26))); //BanAmarillo en decimal
         viewPager.setAdapter(adaptadorDePestanas);
@@ -71,13 +70,5 @@ public class PanUsInicio extends Fragment {
         tabLayout.setBackground(new ColorDrawable(Color.rgb(17, 29, 94))); //ban cyan
         tabLayout.setSelectedTabIndicatorColor(Color.rgb(3, 196, 161)); //ban amarillo
 
-
-        btnSat= (Button) getView().findViewById(R.id.btnVistaSat);
-        btnSat.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mje.mostrarToast("Mapa listo", 'c');
-            }
-        });
     }
 }

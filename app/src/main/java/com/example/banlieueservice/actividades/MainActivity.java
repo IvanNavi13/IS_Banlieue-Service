@@ -49,9 +49,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch(pressed){
             case R.id.btnEntrar:
                 //Zona para pruebas/////////////////
-                /*Intent intentp= new Intent(MainActivity.this, PanelUsuarioActivity.class);
+                /*Intent intentp= new Intent(MainActivity.this, PanelRepartidorActivity.class);
                 //Intent intentp= new Intent(MainActivity.this, MapaActivity.class);
-                intentp.putExtra("correo", "usu@ario");
+                intentp.putExtra("correo", "rep@artidor");
                 etContra.setText("");
                 etCorreo.setText("");
                 startActivity(intentp);
