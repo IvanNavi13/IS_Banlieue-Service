@@ -35,7 +35,6 @@
 			$nvoCuerpoPedido= $bdd->registrarCuerpoPedido(
 				$idNuevoPedido, 
 				(string)$discriminante, 
-				 //Por defecto se inserta un 0, ya que al inicio un repartidor aún no toma el pedido 
 				$cuerpo["idProdserv"], 
 				$cuerpo["cantidad"]
 			);	
@@ -59,11 +58,27 @@
 	}
 
 
-	/*else if($_SERVER["REQUEST_METHOD"]=="GET"){
+
+	else if($_SERVER["REQUEST_METHOD"]=="GET"){
 		$json= stdObj_A_Array( json_decode( $_GET["json"] ) );
 		//responder($json);
 
-		$lista["listaServicios"]= $bdd->selColumnaDeTablaEspecificado("*", "Producto_Servicio", "idEst", $json["idEst"]);
+		if($json["pedido"]=="disp"){ //Pedidos disponibles (campo "hecho" de Pedido es 0 e idRep en CuerpoPedido es NULL)
+			$lista["listaPedidosDisponibles"]= $bdd->verPedidosDisponibles();
+		}
+		else if($json["pedido"]=="pend"){ //Pedidos pendientes (campo "hecho" de Pedido es 0 e idRep en CuerpoPedido tiene valor)
+			$lista["listaPedidosTomados"]= $bdd->verPedidosTomados($json["idRepartidor"]);
+		}
+		else if($json["pedido"]=="real"){ //Pedidos realizados (campo "hecho" de Pedido es 1 e idRep en CuerpoPedido tiene valor)
+			$lista["listaPedidosRealizados"]= $bdd->verPedidosRealizados($json["idRepartidor"]);
+		}
+		else if($json["pedido"]=="cuerpo"){
+			$lista["cuerpoDelPedido"]= $bdd->verCuerpoDePedido($json["idPedido"]);
+		}
+		else if($json["pedido"]=="lugar"){
+			$lista= $bdd->verLugarDePedido($json["idPedido"])[0];
+		}
+
 		responder( 
 			 json_encode($lista)
 		);
@@ -74,30 +89,38 @@
 	else if($_SERVER["REQUEST_METHOD"]=="PUT"){
 		$json= stdObj_A_Array( json_decode( file_get_contents("php://input") ) );
 
-		$bdd->modifProdServ($json["idProdserv"], "no", "no", "no");
-		$modifLug= $bdd->modifProdServ(
-			$json["idProdserv"],
-			$json["nombre"],
-			$json["descripcion"],
-			$json["precio"]
-		);
-		$modifLug? responder("Datos de producto/servicio modificados con éxito") : responder("No se han podido modificar datos.");
+		if($json["pedido"]=="tomar"){
+			$tomarPed= $bdd->tomarPedido(
+				$json["idRepartidor"],
+				$json["idPedido"]
+			);	
+			$tomarPed? responder("Ok, tomado y pendiente \u{1F600}\u{1F44C}, recarga la pantalla") : responder("No puedes tomar este pedido");
+		}
+		else if($json["pedido"]=="marcar"){
+			$tomarPed= $bdd->marcarPedido(
+				$json["idRepartidor"],
+				$json["idPedido"]
+			);	
+			$tomarPed? responder("Ok, misión cumplida \u{1F600}\u{1F440}, recarga la pantalla") : responder("No puedes marcar este pedido como hecho");
+		}
+		
+		
 	}
 
 
-	else if($_SERVER["REQUEST_METHOD"]=="PATCH"){
+	/*else if($_SERVER["REQUEST_METHOD"]=="PATCH"){
 		$json= stdObj_A_Array( json_decode( file_get_contents("php://input") ) );
 		
 		$elimDep= $bdd->elimCuerpoPedido($json["idProdserv"]);
 		$elimEst= $bdd->elimProdServ($json["idProdserv"]);
 
 		($elimDep && $elimEst)? responder("Eliminado con éxito") : responder("Error al eliminar");
-	}
+	}*/
 
 	
 	else{
 		responder("Método HTTP no implementado");
-	}*/
+	}
 
 
 

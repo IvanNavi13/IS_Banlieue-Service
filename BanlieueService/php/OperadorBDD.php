@@ -36,6 +36,12 @@
 		
 		//Específicas
 		//// Llamadas a vistas
+		public function verPedidosDisponibles(){ //Llamado por el repartidor
+			return $this->ejecutarSelectQuery(
+				"SELECT * FROM pedidosDisponibles",
+				array()
+			);
+		}
 
 		//// Llamadas a procedimientos
 		public function infoDeUsuario($corrUsuario){
@@ -56,6 +62,34 @@
 			return $this->ejecutarSelectQuery(
 				"CALL infoRepartidor('$corrRepartidor')",
 				array($corrRepartidor)
+			);
+		}
+
+		public function verCuerpoDePedido($idPedido){
+			return $this->ejecutarSelectQuery(
+				"CALL pedido($idPedido)",
+				array($idPedido)
+			);
+		}
+
+		public function verLugarDePedido($idPedido){
+			return $this->ejecutarSelectQuery(
+				"CALL lugDePedido($idPedido)",
+				array($idPedido)
+			);
+		}
+
+		public function verPedidosTomados($idRepartidor){
+			return $this->ejecutarSelectQuery(
+				"CALL pedidosTomadosPor($idRepartidor)",
+				array($idRepartidor)
+			);
+		}
+
+		public function verPedidosRealizados($idRepartidor){
+			return $this->ejecutarSelectQuery(
+				"CALL pedidosRealizadosPor($idRepartidor)",
+				array($idRepartidor)
 			);
 		}
 
@@ -155,14 +189,14 @@
 
 		public function registrarPedido($idPedido, $idUsuario, $fecha, $hora, $direccion, $hecho){
 			return $this->ejecutarInsertQuery(
-				"INSERT INTO Pedido VALUES('$idPedido', '$idUsuario', '$hora', '$direccion', '$hecho', '$fecha')",
+				"INSERT INTO Pedido VALUES('$idPedido', '$idUsuario', null, '$hora', '$direccion', '$hecho', '$fecha')",
 				array($idPedido, $idUsuario, $fecha, $hora, $direccion, $hecho)
 			);
 		}
 
 		public function registrarCuerpoPedido($idPedido, $idDiscriminante, $idProserv, $cantidad){
 			return $this->ejecutarInsertQuery(
-				"INSERT INTO CuerpoPedido VALUES('$idPedido', '$idDiscriminante', null, '$idProserv', '$cantidad')",
+				"INSERT INTO CuerpoPedido VALUES('$idPedido', '$idDiscriminante', '$idProserv', '$cantidad')",
 				array($idPedido, $idDiscriminante, $idProserv, $cantidad)
 			);
 		}
@@ -335,12 +369,20 @@
 			);
 		}
 
-		/*public function modifProServEstabl($idProserv, $idEstablecimiento){
+		public function tomarPedido($idRepartidor, $idPedido){ //Llamado por el repartidor para tomar un pedido
 			return $this->ejecutarUpdateQuery(
-				"UPDATE Tiene SET ... '$idProServ'",
-				array($idProserv, $idEstablecimiento)
+				"UPDATE Pedido SET idRep='$idRepartidor' WHERE idPed='$idPedido'",
+				array($idRepartidor, $idPedido)
 			);
-		}*/
+		}
+
+		public function marcarPedido($idRepartidor, $idPedido){ //Llamado por el repartidor para tomar un pedido
+			return $this->ejecutarUpdateQuery(
+				"UPDATE Pedido SET hecho=1 WHERE idPed='$idPedido' AND idRep='$idRepartidor'",
+				array($idRepartidor, $idPedido)
+			);
+		}
+
 
 		public function modifTelDeEstablecimiento($idEstablecimiento, $telefonoActual, $telefonoNuevo){
 			return $this->ejecutarUpdateQuery(

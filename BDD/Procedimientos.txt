@@ -1,22 +1,4 @@
-//********************* VACIAR LA BASE DE DATOS *********************//
-DELIMITER #
-CREATE PROCEDURE limpiarBase()
-BEGIN
-	DELETE FROM CuerpoPedido;
-	DELETE FROM Pedido;
-	DELETE FROM Tiene;
-	DELETE FROM Producto_Servicio;
-	DELETE FROM Establecimiento_telefono;
-	DELETE FROM Establecimiento;
-	DELETE FROM Vehiculo;
-	DELETE FROM Repartidor;
-	DELETE FROM Cliente;
-	DELETE FROM Usuario;
-	DELETE FROM Persona;
-END #
-DELIMITER ;
-
-//********************* OBTENCIÓN DE DATOS DE PERSONAS *********************//
+/*-------------------- OBTENCIÓN DE DATOS DE PERSONAS --------------------*/
 DELIMITER #
 CREATE PROCEDURE infoCliente(IN corrcliente text)
 BEGIN
@@ -51,7 +33,7 @@ BEGIN
 END #
 DELIMITER ;
 
-//********************* ELIMINACIONES *********************//
+/*-------------------- ELIMINACIONES --------------------*/
 DELIMITER #
 CREATE PROCEDURE elimUsuario(IN idusr int, IN idper int)
 BEGIN
@@ -73,9 +55,86 @@ DELIMITER ;
 DELIMITER #
 CREATE PROCEDURE elimRepartidor(IN idrepa int, IN idper int)
 BEGIN
-	DELETE FROM Pedido WHERE idRep=idrepa;
+	DELETE FROM CuerpoPedido WHERE idRep=idrepa;
 	DELETE FROM Vehiculo WHERE idRep=idrepa;
 	DELETE FROM Repartidor WHERE idRep=idrepa;
 	DELETE FROM Persona WHERE idPersona=idper;
 END #
 DELIMITER ;
+
+/*-------------------- PEDIDOS DE UN REPARTIDOR --------------------*/
+DELIMITER #
+CREATE PROCEDURE pedidosTomadosPor(IN idrepa int)
+BEGIN
+	SELECT * FROM pedidosTomados WHERE idRep=idrepa;
+END #
+DELIMITER ;
+
+DELIMITER #
+CREATE PROCEDURE pedidosRealizadosPor(IN idrepa int)
+BEGIN
+	SELECT * FROM pedidosRealizados WHERE idRep=idrepa;
+END #
+DELIMITER ;
+
+DELIMITER #
+CREATE PROCEDURE pedido(IN idpedido int)
+BEGIN
+	SELECT * from cuerposDePedido WHERE idPed=idpedido;
+END #
+DELIMITER ;
+
+DELIMITER #
+CREATE PROCEDURE lugDePedido(IN idpedido int)
+BEGIN
+	SELECT * from lugarDePedido WHERE idPed=idpedido;
+END #
+DELIMITER ;
+
+	
+
+
+/*-------------------- VISTAS --------------------*/
+CREATE VIEW pedidosDisponibles AS
+	SELECT ped.idPed, CONCAT(p.nombres, " ", p.apaterno, " ", p.amaterno) AS persona, p.telefono, ped.direccion, ped.fecha, ped.hora 
+	FROM Persona p, Pedido ped, Usuario u 
+	WHERE 
+	ped.idUs=u.idUs AND 
+	u.idPersona=p.idPersona AND
+	ped.idRep IS NULL AND 
+	ped.hecho=0;
+
+CREATE VIEW cuerposDePedido AS
+	SELECT ped.idPed, ps.nombre AS prod_serv, ps.precio, cp.cantidad 
+	FROM Establecimiento e, Producto_Servicio ps, Pedido ped, CuerpoPedido cp 
+	WHERE 
+	cp.idPed=ped.idPed AND 
+	cp.idProdserv=ps.idProdserv AND 
+	ps.idEst=e.idEst;
+
+CREATE VIEW lugarDePedido AS
+	SELECT DISTINCT ped.idPed, e.nombre AS lugar, e.direccion AS dirLugar, CONCAT(e.apertura, " - ", e.cierre) AS horarioLugar 
+	FROM Establecimiento e, Producto_Servicio ps, Pedido ped, CuerpoPedido cp 
+	WHERE 
+	cp.idPed=ped.idPed AND 
+	cp.idProdserv=ps.idProdserv AND 
+	ps.idEst=e.idEst;
+
+CREATE VIEW pedidosTomados AS
+	SELECT ped.idRep, ped.idPed, CONCAT(p.nombres, " ", p.apaterno, " ", p.amaterno) AS persona, p.telefono, ped.direccion, ped.fecha, ped.hora 
+	FROM Persona p, Pedido ped, Usuario u 
+	WHERE 
+	ped.idUs=u.idUs AND 
+	u.idPersona=p.idPersona AND
+	ped.idRep IS NOT NULL AND 
+	ped.hecho=0;
+
+CREATE VIEW pedidosRealizados AS
+	SELECT ped.idRep, ped.idPed, CONCAT(p.nombres, " ", p.apaterno, " ", p.amaterno) AS persona, p.telefono, ped.direccion, ped.fecha, ped.hora 
+	FROM Persona p, Pedido ped, Usuario u 
+	WHERE 
+	ped.idUs=u.idUs AND 
+	u.idPersona=p.idPersona AND
+	ped.idRep IS NOT NULL AND 
+	ped.hecho=1;
+
