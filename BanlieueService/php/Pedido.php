@@ -1,6 +1,7 @@
 <?php
 	include "./OperadorBDD.php";
 	include "./Herramienta.php";
+	SESSION_START();
 
 	$bdd= new OperadorBDD();
 	$herr= new Herramienta();
@@ -63,6 +64,8 @@
 		$json= stdObj_A_Array( json_decode( $_GET["json"] ) );
 		//responder($json);
 
+		$bndImg=false;
+
 		if($json["pedido"]=="disp"){ //Pedidos disponibles (campo "hecho" de Pedido es 0 e idRep en CuerpoPedido es NULL)
 			$lista["listaPedidosDisponibles"]= $bdd->verPedidosDisponibles();
 		}
@@ -76,12 +79,26 @@
 			$lista["cuerpoDelPedido"]= $bdd->verCuerpoDePedido($json["idPedido"]);
 		}
 		else if($json["pedido"]=="lugar"){
+			$resp="";
 			$lista= $bdd->verLugarDePedido($json["idPedido"])[0];
+			/*responder( 
+				 json_encode($lista)
+			);*/
+			$resp= $resp.$lista["idPed"]."@".$lista["lugar"]."@".$lista["dirLugar"]."@".$lista["horarioLugar"]."@";
+			$imagen= file_get_contents("../imgLug/".$lista["idEst"]);
+			$resp= $resp.base64_encode($imagen);
+			print(
+				//json_encode($lista)
+				$resp
+			);
+			$bndImg=true;
 		}
 
-		responder( 
-			 json_encode($lista)
-		);
+		if(!$bndImg){
+			responder( 
+				 json_encode($lista)
+			);
+		}
 	}
 
 

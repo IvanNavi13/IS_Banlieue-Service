@@ -1,6 +1,7 @@
 <?php
 	include "./OperadorBDD.php";
 	include "./Herramienta.php";
+	SESSION_START();
 
 	$bdd= new OperadorBDD();
 	$herr= new Herramienta();
@@ -25,7 +26,7 @@
 
 		$lista["listaServicios"]= $bdd->selColumnaDeTablaEspecificado("*", "Producto_Servicio", "idEst", $json["idEst"]);
 		responder( 
-			 json_encode($lista)
+			json_encode($lista)
 		);
 	}
 
