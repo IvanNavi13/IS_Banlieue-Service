@@ -75,35 +75,45 @@ public class PanRepModifDatosServ extends Fragment implements View.OnClickListen
             placa= etPlaca.getText().toString();
             curp= etCurp.getText().toString();
 
-            if( vehiculo.equals("") || placa.equals("") || curp.equals("") )
-                mje.mostrarToast("Debe ingresar todos los datos necesarios", 'l');
-            else{
-                JSON json = new JSON();
-                json.agregarDato("datos", "serv"); //Clave para modificar datos personales
-                json.agregarDato("idrep", datosActuales.get("idPartic"));
-                json.agregarDato("idve", datosActuales.get("idVe"));
-                json.agregarDato("vehiculo", vehiculo);
-                json.agregarDato("placa", placa);
-                json.agregarDato("CURP", curp);
+            StringBuilder sb= new StringBuilder(datosActuales.get("fechanac"));
+            sb.delete(0, 2);
+            if (!curp.contains(sb.toString().replace("-", ""))) {
+                mje.mostrarDialog("La fecha de nacimiento ingresada no coincide con la del CURP.", "BanlieueService", (AppCompatActivity)act);
+            } else {
+                if (curp.length() < 18) {
+                    mje.mostrarDialog("La CURP debe contener 18 caracteres.", "Banlieue Service", (AppCompatActivity)act);
+                } else {
+                    if( vehiculo.equals("") || placa.equals("") || curp.equals("") )
+                        mje.mostrarToast("Debe ingresar todos los datos necesarios", 'l');
+                    else{
+                        JSON json = new JSON();
+                        json.agregarDato("datos", "serv"); //Clave para modificar datos personales
+                        json.agregarDato("idrep", datosActuales.get("idPartic"));
+                        json.agregarDato("idve", datosActuales.get("idVe"));
+                        json.agregarDato("vehiculo", vehiculo);
+                        json.agregarDato("placa", placa);
+                        json.agregarDato("CURP", curp);
 
-                ServicioWeb.obtenerInstancia(ctx).modificarDatosServicio(json.strJSON(), new VolleyCallBack() {
-                    @RequiresApi(api = Build.VERSION_CODES.N)
-                    @Override
-                    public void onSuccess(String result) {
-                        mje.mostrarDialog(result, "Banlieue Service", (AppCompatActivity)act);
-                        modificarDatosLocalmente();
+                        ServicioWeb.obtenerInstancia(ctx).modificarDatosServicio(json.strJSON(), new VolleyCallBack() {
+                            @RequiresApi(api = Build.VERSION_CODES.N)
+                            @Override
+                            public void onSuccess(String result) {
+                                mje.mostrarDialog(result, "Banlieue Service", (AppCompatActivity)act);
+                                modificarDatosLocalmente();
+                            }
+
+                            @Override
+                            public void onJsonSuccess(String jsonResult) {
+
+                            }
+
+                            @Override
+                            public void onError(String result) {
+                                mje.mostrarDialog(result, "Banlieue Service", (AppCompatActivity)act);
+                            }
+                        });
                     }
-
-                    @Override
-                    public void onJsonSuccess(String jsonResult) {
-
-                    }
-
-                    @Override
-                    public void onError(String result) {
-                        mje.mostrarDialog(result, "Banlieue Service", (AppCompatActivity)act);
-                    }
-                });
+                }
             }
         }
     }

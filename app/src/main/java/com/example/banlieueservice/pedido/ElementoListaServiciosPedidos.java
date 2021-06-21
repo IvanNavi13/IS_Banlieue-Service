@@ -17,7 +17,7 @@ public class ElementoListaServiciosPedidos {
     }
 
     public String obtCantidad(){
-        return cantidad;
+        return "Cantidad: "+cantidad;
     }
 
     public String obtPrecioTotal(){

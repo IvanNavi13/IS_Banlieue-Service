@@ -6,11 +6,33 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@drawable/fondo_registro_no_logo"
-        >
+    >
+
+    <EditText android:id="@+id/etDireccionUsuario"
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:hint="Dirección para entregar pedido"
+        android:gravity="center"
+        android:inputType="textCapSentences|textAutoCorrect|textMultiLine"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:theme="@style/cajasTexto"
+        />
+
+    <TextView android:id="@+id/tvNombreNeg"
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:gravity="center"
+        android:layout_gravity="center_horizontal"
+        android:textColor="@color/banCyan"
+        android:textSize="35sp"
+        />
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="420dp"
+        android:layout_height="415dp"
         android:fillViewport="true"
         tools:ignore="MissingConstraints">
 
@@ -26,32 +48,24 @@
         </LinearLayout>
     </ScrollView>
 
-    <Button android:id="@+id/btn"
-        android:layout_marginTop="10dp"
+    <Button android:id="@+id/btnVerPedido"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="+ Nuevo servicio"
         android:layout_gravity="center_horizontal"
+        android:gravity="center"
+        android:text="Pedido actual"
+        android:layout_marginTop="20dp"
         android:textSize="20sp"
         android:backgroundTint="@color/banCyan"
-        tools:ignore="MissingConstraints" />
+        />
 
-    <CheckBox android:id="@+id/checkServElim"
+    <CheckBox android:id="@+id/checkAgrgegarServ"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Eliminar"
+        android:text="Añadir al pedido"
         android:gravity="center"
         android:textColor="@color/white"
         android:textSize="20sp"
         />
-
-    <CheckBox android:id="@+id/checkServModif"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Modificar"
-        android:gravity="center"
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        />
-
 </LinearLayout>
+

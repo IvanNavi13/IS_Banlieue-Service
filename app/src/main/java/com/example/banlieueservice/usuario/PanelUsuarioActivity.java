@@ -12,10 +12,12 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
 import com.example.banlieueservice.R;
+import com.example.banlieueservice.actividades.HomeFragment;
 import com.example.banlieueservice.actividades.MainActivity;
 import com.example.banlieueservice.herramientas.Mensaje;
 import com.example.banlieueservice.herramientas.Utilidad;
 import com.example.banlieueservice.interfaces.VolleyCallBack;
+import com.example.banlieueservice.repartidor.PanelRepartidorActivity;
 import com.example.banlieueservice.web.JSON;
 import com.example.banlieueservice.web.ServicioWeb;
 import com.google.android.material.navigation.NavigationView;
@@ -41,7 +43,7 @@ public class PanelUsuarioActivity extends AppCompatActivity implements Navigatio
         cargarNavegador();
 
         //Por defecto ir a la actividad del mapa
-        irAFragment(new PanUsHome(), getString(R.string.home));
+        irAFragment(new HomeFragment(), getString(R.string.home));
     }
 
     //OPCIONES ÍCONO HAMBURGUESA
@@ -63,8 +65,7 @@ public class PanelUsuarioActivity extends AppCompatActivity implements Navigatio
                 break;
 
             case R.id.itemUsCerrSes:
-                Intent intent= new Intent(PanelUsuarioActivity.this, MainActivity.class);
-                startActivity(intent);
+                cerrarSesionUsuario();
                 break;
 
             case R.id.itemUsElimCta:
@@ -111,6 +112,32 @@ public class PanelUsuarioActivity extends AppCompatActivity implements Navigatio
             }
         });
     }
+
+
+    private void cerrarSesionUsuario(){
+        JSON json = new JSON();
+        json.agregarDato("tipoPersona", "usr"); //Enviar al servidor clave de indicación de Usuario (para saber qué procedure llamar)
+        json.agregarDato("correo", getIntent().getStringExtra("correo"));
+        ServicioWeb.obtenerInstancia(this).cerrarSesion(json.strJSON(), new VolleyCallBack() {
+            @Override
+            public void onSuccess(String result) {
+
+            }
+
+            @Override
+            public void onJsonSuccess(String jsonResult) {
+                mje.mostrarToast(json.obtenerDatos(jsonResult).get("mjeCierre"), 'l');
+                Intent intent= new Intent(PanelUsuarioActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+
+            @Override
+            public void onError(String result) {
+                mje.mostrarDialog(result, "Banlieue Service", panusAct);
+            }
+        });
+    }
+
 
     private void irAFragment(Fragment fragment, String titulo){
         getSupportFragmentManager()

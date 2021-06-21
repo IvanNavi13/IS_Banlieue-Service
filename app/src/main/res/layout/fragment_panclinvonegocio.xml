@@ -6,7 +6,6 @@
     android:orientation="vertical">
 
     <ScrollView
-        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fillViewport="true"
@@ -25,7 +24,7 @@
                 android:gravity="center"
                 android:inputType="textCapSentences|textAutoCorrect"
                 android:textColor="@color/white"
-                android:textSize="20dp"
+                android:textSize="20sp"
                 android:theme="@style/cajasTexto"
                 />
 
@@ -36,7 +35,7 @@
                 android:text="Giro del negocio:"
                 android:gravity="center"
                 android:textColor="@color/white"
-                android:textSize="20dp"
+                android:textSize="20sp"
                 />
             <Spinner android:id="@+id/spReglocalGiro"
                 android:layout_width="match_parent"
@@ -53,6 +52,7 @@
                 android:inputType="text|textMultiLine|textCapSentences"
                 android:textColor="@color/white"
                 android:theme="@style/cajasTexto"
+                android:textSize="20sp"
                 />
 
             <!--Hora de apertura-->
@@ -60,6 +60,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
+                android:layout_gravity="center_horizontal"
                 android:orientation="horizontal">
                 <TextView
                     android:layout_width="match_parent"
@@ -67,7 +68,7 @@
                     android:text="Hora de apertura=>   "
                     android:gravity="center"
                     android:textColor="@color/white"
-                    android:textSize="20dp"
+                    android:textSize="20sp"
                     />
 
                 <Spinner android:id="@+id/spHoraAper"
@@ -81,7 +82,7 @@
                     android:text=":   "
                     android:gravity="center"
                     android:textColor="@color/white"
-                    android:textSize="20dp"
+                    android:textSize="20sp"
                     />
                 <Spinner android:id="@+id/spMinAper"
                     android:layout_width="wrap_content"
@@ -95,6 +96,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
+                android:layout_gravity="center_horizontal"
                 android:orientation="horizontal">
                 <TextView
                     android:layout_width="match_parent"
@@ -102,7 +104,7 @@
                     android:text="Hora de cierre=>   "
                     android:gravity="center"
                     android:textColor="@color/white"
-                    android:textSize="20dp"
+                    android:textSize="20sp"
                     />
 
                 <Spinner android:id="@+id/spHoraCierre"
@@ -116,7 +118,7 @@
                     android:text=":   "
                     android:gravity="center"
                     android:textColor="@color/white"
-                    android:textSize="20dp"
+                    android:textSize="20sp"
                     />
                 <Spinner android:id="@+id/spMinCierre"
                     android:layout_width="wrap_content"
@@ -125,13 +127,53 @@
                     />
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="30dp"
+                >
+                <ImageView
+                    android:id="@+id/dispImgLugar"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitXY"
+                    android:src="@android:drawable/ic_menu_gallery" />
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    >
+
+                    <!--Etiqueta de relleno-->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="20dp"
+                        />
+                    <Button
+                        android:id="@+id/btnCargarImagen"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_gravity="center_horizontal"
+                        android:backgroundTint="@color/banCyan"
+                        android:text="Cargar"
+                        android:textSize="20sp" />
+
+                </LinearLayout>
+            </LinearLayout>
+
             <Button android:id="@+id/btnRegistrar"
-                android:layout_marginTop="100dp"
+                android:layout_marginTop="20dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="REGISTRAR"
                 android:layout_gravity="center_horizontal"
-                android:textSize="20dp"
+                android:textSize="20sp"
                 android:backgroundTint="@color/banCyan"
                 />
 

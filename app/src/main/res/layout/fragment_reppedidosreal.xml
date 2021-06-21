@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:text="Usar ListView y ListAdapter x2"
         android:textColor="@color/white"
-        android:textSize="50dp"
+        android:textSize="50sp"
         tools:ignore="MissingConstraints" />
 
     <Button android:id="@+id/btn"
@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         android:text="PRESIONAME x2 XD"
         android:layout_gravity="center_horizontal"
-        android:textSize="20dp"
+        android:textSize="20sp"
         android:backgroundTint="@color/banCyan"
         tools:ignore="MissingConstraints" />
 

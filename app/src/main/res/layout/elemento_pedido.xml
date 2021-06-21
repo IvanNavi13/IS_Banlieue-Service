@@ -41,7 +41,6 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:gravity="center"
-                android:text="Nombre"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
 
             <TextView
@@ -50,7 +49,6 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:gravity="center"
-                android:text="Descripción"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
 
 
@@ -67,7 +65,7 @@
                 android:layout_height="wrap_content"
                 android:text="-"
                 android:layout_gravity="center_horizontal"
-                android:textSize="20dp"
+                android:textSize="20sp"
                 android:backgroundTint="@color/banCyan"
                 android:adjustViewBounds="true"
                 android:scaleType="fitXY"
@@ -78,7 +76,6 @@
                 android:layout_width="115dp"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:hint="Cantidad"
                 android:inputType="number"
                 android:textColor="@color/white"
                 android:theme="@style/cajasTexto"
@@ -89,7 +86,7 @@
                 android:layout_height="wrap_content"
                 android:text="+"
                 android:layout_gravity="center_horizontal"
-                android:textSize="20dp"
+                android:textSize="20sp"
                 android:backgroundTint="@color/banCyan"
                 android:adjustViewBounds="true"
                 android:scaleType="fitXY"

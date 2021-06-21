@@ -6,7 +6,6 @@
     >
 
     <ScrollView
-        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fillViewport="true"
@@ -23,14 +22,14 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:textColor="@color/white"
-                android:textSize="20dp"
+                android:textSize="20sp"
                 />
             <TextView android:id="@+id/tvEdad"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:textColor="@color/white"
-                android:textSize="20dp"
+                android:textSize="20sp"
                 />
 
             <EditText android:id="@+id/etModifNombre"
@@ -41,7 +40,7 @@
                 android:gravity="center"
                 android:inputType="textCapSentences|textAutoCorrect"
                 android:textColor="@color/white"
-                android:textSize="20dp"
+                android:textSize="20sp"
                 android:theme="@style/cajasTexto"
                 />
             <EditText android:id="@+id/etModifApaterno"
@@ -72,7 +71,7 @@
                 android:text="Fecha de nacimiento"
                 android:gravity="center"
                 android:textColor="@color/white"
-                android:textSize="20dp"
+                android:textSize="20sp"
                 />
 
             <LinearLayout
@@ -121,7 +120,7 @@
                 android:layout_height="wrap_content"
                 android:text="MODIFICAR"
                 android:layout_gravity="center_horizontal"
-                android:textSize="20dp"
+                android:textSize="20sp"
                 android:backgroundTint="@color/banCyan"
                 />
 
@@ -131,7 +130,7 @@
                 android:text="Modificar nombre"
                 android:gravity="center"
                 android:textColor="@color/white"
-                android:textSize="20dp"
+                android:textSize="20sp"
                 />
 
         </LinearLayout>

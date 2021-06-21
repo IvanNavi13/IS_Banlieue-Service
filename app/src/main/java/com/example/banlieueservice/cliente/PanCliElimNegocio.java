@@ -1,7 +1,6 @@
 package com.example.banlieueservice.cliente;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -20,13 +19,11 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
 import com.example.banlieueservice.R;
-import com.example.banlieueservice.actividades.MainActivity;
 import com.example.banlieueservice.herramientas.Mensaje;
 import com.example.banlieueservice.interfaces.VolleyCallBack;
 import com.example.banlieueservice.web.JSON;
 import com.example.banlieueservice.web.ServicioWeb;
 
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -117,7 +114,7 @@ public class PanCliElimNegocio extends Fragment implements View.OnClickListener,
 
         /////COLOCAR ELEMENTOS EN EL SPINNER PARA LE TIPO DE USUARIO
         // Crear ArrayAdapter desde algún recurso
-        adapter = new PanCliHome.MyArrayAdapter(ctx, recurso, elementos);
+        adapter = new PanCliInicio.MyArrayAdapter(ctx, recurso, elementos);
         // Especificación de modelo a mostrar en el spinner
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);

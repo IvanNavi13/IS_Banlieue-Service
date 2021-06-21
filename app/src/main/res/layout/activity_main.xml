@@ -13,6 +13,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fillViewport="true"
+        android:layout_marginTop="430dp"
+        android:layout_marginBottom="20dp"
         >
 
         <LinearLayout
@@ -22,12 +24,12 @@
             >
 
             <EditText android:id="@+id/etCorreo"
-                android:layout_marginTop="500sp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Correo"
                 android:inputType="textEmailAddress"
                 android:textColor="@color/white"
+                android:textSize="20sp"
                 android:gravity="center"
                 android:theme="@style/cajasTexto"
                 />
@@ -39,6 +41,7 @@
                 android:hint="Contraseña"
                 android:inputType="textPassword"
                 android:textColor="@color/white"
+                android:textSize="20sp"
                 android:gravity="center"
                 android:theme="@style/cajasTexto"
                 />
@@ -49,7 +52,7 @@
                 android:layout_height="wrap_content"
                 android:text="ENTRAR"
                 android:layout_gravity="center_horizontal"
-                android:textSize="20dp"
+                android:textSize="20sp"
                 android:backgroundTint="@color/banCyan"
                 />
 
@@ -57,11 +60,11 @@
                 android:layout_marginTop="50dp"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                android:textSize="15dp"
+                android:textSize="17sp"
                 android:gravity="bottom"
                 android:layout_gravity="left"
                 android:textColor="@color/white"
-                />
+                tools:ignore="RtlHardcoded" />
 
         </LinearLayout>
 

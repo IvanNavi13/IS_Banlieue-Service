@@ -2,11 +2,13 @@ package com.example.banlieueservice.web;
 
 import android.content.Context;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.banlieueservice.interfaces.VolleyCallBack;
 
@@ -14,12 +16,17 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ServicioWeb {
     private Context ctx;
 
     //Modificar IP del servidor que se esté usando
-    private final String ip= "192.168.100.7";
+    //private final String ip= "13.85.57.96";
+    private final String ip= "192.168.100.7"; //mía
+    //private final String ip= "192.168.100.111"; //iván
+    //private final String ip= "192.168.200.2"; //christian
     //private final String ip= "192.168.43.240";
     //private final String ip= "192.168.0.17";
     /////////////////////////////////////////////////
@@ -44,9 +51,9 @@ public class ServicioWeb {
         altaModifElim(jsonStr, vcb, Request.Method.POST);
     }
 
-    public void nuevoEstablecimiento(String jsonStr, VolleyCallBack vcb){
+    public void nuevoEstablecimiento(Map<String, String> datos, VolleyCallBack vcb){
         definirURL("http://"+ip+"/BanlieueService/php/Establecimiento.php");
-        altaModifElim(jsonStr, vcb, Request.Method.POST);
+        altaModifElim(datos, vcb, Request.Method.POST);
     }
 
     public void nuevoServicioEst(String jsonStr, VolleyCallBack vcb){
@@ -74,14 +81,21 @@ public class ServicioWeb {
         consulta(vcb);
     }
 
-    //tipoPedido: 'd'->Disponibles, 'p'->Pendientes, 'r'->Realizados
     public void pedidos(String jsonStr, VolleyCallBack vcb){
         definirURL("http://"+ip+"/BanlieueService/php/Pedido.php?json="+jsonStr);
         consulta(vcb);
     }
+    public void lugarPedidos(String jsonStr, VolleyCallBack vcb){
+        definirURL("http://"+ip+"/BanlieueService/php/Pedido.php?json="+jsonStr);
+        consultaConImagen(vcb);
+    }
 
     public void iniciarSesion(String jsonStr, VolleyCallBack vcb){
         definirURL("http://"+ip+"/BanlieueService/php/IniciarSesion.php?json="+jsonStr);
+        consulta(/*jsonStr, */vcb);
+    }
+    public void cerrarSesion(String jsonStr, VolleyCallBack vcb){
+        definirURL("http://"+ip+"/BanlieueService/php/CerrarSesion.php?json="+jsonStr);
         consulta(/*jsonStr, */vcb);
     }
 
@@ -144,11 +158,12 @@ public class ServicioWeb {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                vcb.onError("Error: "+error.toString());
+                vcb.onError("Error: "+error.toString().split("volley.")[1]);
             }
         }
         )
         {
+            @Override
             public byte[] getBody() {
                 try {
                     return jsonStr == null ? null : jsonStr.getBytes("utf-8");
@@ -156,6 +171,30 @@ public class ServicioWeb {
                     vcb.onError("Codificación no soportada obteniendo los datos de "+jsonStr);
                     return null;
                 }
+            }
+        };
+        queue.add(peticion);
+    }
+
+    //Sobrecarga para registrar un establecimiento
+    private void altaModifElim(Map<String, String> datos, VolleyCallBack vcb, int metodo){ //Método POST
+        StringRequest peticion = new StringRequest(
+                metodo, url.toString(), new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                vcb.onSuccess( response );
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                vcb.onError("Error: "+error.toString().split("volley.")[1]);
+            }
+        }
+        )
+        {
+            @Override
+            protected Map<String, String> getParams() {
+                return datos;
             }
         };
         queue.add(peticion);
@@ -175,12 +214,31 @@ public class ServicioWeb {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                vcb.onError("Error: "+error.toString());
+                vcb.onError("Error: "+error.toString().split("volley.")[1]);
             }
         }
         );
         queue.add(peticion);
     }
+
+    //*Sobrecarga* para obtener datos del establecimiento
+    private void consultaConImagen(/*String jsonStr, */VolleyCallBack vcb){ //Método GET
+        StringRequest peticion = new StringRequest(
+                Request.Method.GET, url.toString(), new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                vcb.onSuccess( response );
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                vcb.onError("Error: "+error.toString().split("volley.")[1]);
+            }
+        }
+        );
+        queue.add(peticion);
+    }
+
 
     private void definirURL(String url){
         this.url= new StringBuilder(url);

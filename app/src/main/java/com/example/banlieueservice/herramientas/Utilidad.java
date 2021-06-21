@@ -14,7 +14,7 @@ public class Utilidad {
             "\tEscorcia Peña José Daniel\n"+
             "\tGarcía García Cano Ivan\n\n"+
             "Junio 2021\n\n"+
-            "Versión 1.0";
+            "Versión 1.1";
     private LinkedHashMap<String, String> mapa= new LinkedHashMap<>();
 
     public Utilidad(){

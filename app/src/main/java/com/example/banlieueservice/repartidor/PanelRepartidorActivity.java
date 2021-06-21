@@ -12,7 +12,9 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
 import com.example.banlieueservice.R;
+import com.example.banlieueservice.actividades.HomeFragment;
 import com.example.banlieueservice.actividades.MainActivity;
+import com.example.banlieueservice.cliente.PanelClienteActivity;
 import com.example.banlieueservice.herramientas.Mensaje;
 import com.example.banlieueservice.herramientas.Utilidad;
 import com.example.banlieueservice.interfaces.VolleyCallBack;
@@ -42,7 +44,7 @@ public class PanelRepartidorActivity extends AppCompatActivity implements Naviga
 
 
         //Por defecto ir a la actividad del mapa
-        irAFragment(new PanRepHome(), getString(R.string.usInicio));
+        irAFragment(new HomeFragment(), getString(R.string.home));
     }
 
     //OPCIONES ÍCONO HAMBURGUESA
@@ -68,8 +70,7 @@ public class PanelRepartidorActivity extends AppCompatActivity implements Naviga
                 break;
 
             case R.id.itemRepCerrSes:
-                Intent intent= new Intent(PanelRepartidorActivity.this, MainActivity.class);
-                startActivity(intent);
+                cerrarSesionRepartidor();
                 break;
 
             case R.id.itemRepElimCta:
@@ -108,6 +109,30 @@ public class PanelRepartidorActivity extends AppCompatActivity implements Naviga
             @Override
             public void onJsonSuccess(String jsonResult) {
                 datosRepartidor = json.obtenerDatos(jsonResult);
+            }
+
+            @Override
+            public void onError(String result) {
+                mje.mostrarDialog(result, "Banlieue Service", panrepAct);
+            }
+        });
+    }
+
+    private void cerrarSesionRepartidor(){
+        JSON json = new JSON();
+        json.agregarDato("tipoPersona", "rep"); //Enviar al servidor clave de indicación de Usuario (para saber qué procedure llamar)
+        json.agregarDato("correo", getIntent().getStringExtra("correo"));
+        ServicioWeb.obtenerInstancia(this).cerrarSesion(json.strJSON(), new VolleyCallBack() {
+            @Override
+            public void onSuccess(String result) {
+
+            }
+
+            @Override
+            public void onJsonSuccess(String jsonResult) {
+                mje.mostrarToast(json.obtenerDatos(jsonResult).get("mjeCierre"), 'l');
+                Intent intent= new Intent(PanelRepartidorActivity.this, MainActivity.class);
+                startActivity(intent);
             }
 
             @Override

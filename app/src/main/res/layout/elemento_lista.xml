@@ -12,7 +12,6 @@
         android:layout_height="70dp"
         android:adjustViewBounds="true"
         android:scaleType="fitXY"
-        android:contentDescription="Descripción del contenido de la imagen"
         android:src="@android:drawable/ic_menu_gallery" />
 
     <LinearLayout
@@ -28,7 +27,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:gravity="center"
-            android:text="Nombre"
             android:textAppearance="?android:attr/textAppearanceLarge"
             />
 
@@ -38,7 +36,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:gravity="center"
-            android:text="Descripción"
             android:textAppearance="?android:attr/textAppearanceLarge"
             />
 

@@ -104,34 +104,40 @@ public class PanRepModifDatosPer extends Fragment implements View.OnClickListene
             if( (checkModNombre.isChecked() && (nombres.equals("") || apaterno.equals("") || amaterno.equals("")) ) || telefono.equals(""))
                 mje.mostrarToast("Debe ingresar todos los datos necesarios", 'l');
             else{
-                JSON json = new JSON();
-                json.agregarDato("datos", "per"); //Clave para modificar datos personales
-                json.agregarDato("opc", opcNombre);
-                json.agregarDato("id", datosActuales.get("idPersona"));
-                json.agregarDato("fechanac", fechanac);
-                json.agregarDato("telefono", telefono);
-                json.agregarDato("nombres", nombres);
-                json.agregarDato("apaterno", apaterno);
-                json.agregarDato("amaterno", amaterno);
+                if( new Utilidad().edad(fechanac) < 18 ){
+                    //Sustituir esto por una verificación de CURP, no de fecha de nacimiento
+                    mje.mostrarDialog("No puede ser repartidor de Banlieue Service alguien menor de edad.", "Banlieue Service", (AppCompatActivity)act);
+                }
+                else{
+                    JSON json = new JSON();
+                    json.agregarDato("datos", "per"); //Clave para modificar datos personales
+                    json.agregarDato("opc", opcNombre);
+                    json.agregarDato("id", datosActuales.get("idPersona"));
+                    json.agregarDato("fechanac", fechanac);
+                    json.agregarDato("telefono", telefono);
+                    json.agregarDato("nombres", nombres);
+                    json.agregarDato("apaterno", apaterno);
+                    json.agregarDato("amaterno", amaterno);
 
-                ServicioWeb.obtenerInstancia(ctx).modificarDatosPersonales(json.strJSON(), new VolleyCallBack() {
-                    @RequiresApi(api = Build.VERSION_CODES.N)
-                    @Override
-                    public void onSuccess(String result) {
-                        mje.mostrarDialog(result, "Banlieue Service", (AppCompatActivity)act);
-                        modificarDatosLocalmente();
-                    }
+                    ServicioWeb.obtenerInstancia(ctx).modificarDatosPersonales(json.strJSON(), new VolleyCallBack() {
+                        @RequiresApi(api = Build.VERSION_CODES.N)
+                        @Override
+                        public void onSuccess(String result) {
+                            mje.mostrarDialog(result, "Banlieue Service", (AppCompatActivity)act);
+                            modificarDatosLocalmente();
+                        }
 
-                    @Override
-                    public void onJsonSuccess(String jsonResult) {
+                        @Override
+                        public void onJsonSuccess(String jsonResult) {
 
-                    }
+                        }
 
-                    @Override
-                    public void onError(String result) {
-                        mje.mostrarDialog(result, "Banlieue Service", (AppCompatActivity)act);
-                    }
-                });
+                        @Override
+                        public void onError(String result) {
+                            mje.mostrarDialog(result, "Banlieue Service", (AppCompatActivity)act);
+                        }
+                    });
+                }
             }
         }
     }

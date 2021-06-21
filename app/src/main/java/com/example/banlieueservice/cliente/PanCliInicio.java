@@ -33,7 +33,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-public class PanCliHome extends Fragment implements OnItemSelectedListener, FragmentCommunicator {
+public class PanCliInicio extends Fragment implements OnItemSelectedListener, FragmentCommunicator {
     private Context ctx;
     private FragmentActivity act;
     private Spinner spNomNeg;
@@ -45,6 +45,10 @@ public class PanCliHome extends Fragment implements OnItemSelectedListener, Frag
     private PanCliDatosLocal panCliDatosLocal;
     private PanCliServsLocal panCliServsLocal;
 
+    public PanCliInicio(Map<String, String> datosCliente){
+        this.datosCliente= datosCliente;
+    }
+
     @Override
     public View onCreateView(LayoutInflater li, ViewGroup vg, Bundle b) {
 
@@ -52,7 +56,7 @@ public class PanCliHome extends Fragment implements OnItemSelectedListener, Frag
         act= getActivity();
         mje= new Mensaje(ctx);
 
-        return li.inflate(R.layout.fragment_panclihome, vg, false);
+        return li.inflate(R.layout.fragment_pancliinicio, vg, false);
     }
 
     @Override
@@ -67,9 +71,9 @@ public class PanCliHome extends Fragment implements OnItemSelectedListener, Frag
         panCliDatosLocal= new PanCliDatosLocal();
         panCliServsLocal= new PanCliServsLocal();
 
-        titulos.add("Información de local");
+        titulos.add("Vista/Modificación");
         contPestanas.add(panCliDatosLocal);
-        titulos.add("Productos/Servicios que ofrece");
+        titulos.add("Servicios");
         contPestanas.add(panCliServsLocal);
 
         adaptadorDePestanas = new PanRepInicio.AdaptadorDePestanas(getChildFragmentManager(), titulos, contPestanas);
@@ -81,6 +85,7 @@ public class PanCliHome extends Fragment implements OnItemSelectedListener, Frag
         tabLayout.setSelectedTabIndicatorColor(Color.rgb(3, 196, 161)); //ban cyan
 
 
+        cargarLocales();
     }
 
     @Override
@@ -115,7 +120,7 @@ public class PanCliHome extends Fragment implements OnItemSelectedListener, Frag
     }
     @Override
     public void sendSingleData(Object data) {
-        cargarInfoCliente( (String) data );
+
     }
 
     private void initComponents(){
@@ -147,29 +152,6 @@ public class PanCliHome extends Fragment implements OnItemSelectedListener, Frag
             @Override
             public void onError(String result) {
                 mje.mostrarDialog(result, "Banlieue Service", (AppCompatActivity)act);
-            }
-        });
-    }
-
-    private void cargarInfoCliente(String correo){
-        JSON json = new JSON();
-        json.agregarDato("tipoPersona", "cli"); //Enviar al servidor clave de indicación de Usuario (para saber qué procedure llamar)
-        json.agregarDato("correo", correo);
-        ServicioWeb.obtenerInstancia(ctx).infoPersona(json.strJSON(), new VolleyCallBack() {
-            @Override
-            public void onSuccess(String result) {
-
-            }
-
-            @Override
-            public void onJsonSuccess(String jsonResult) {
-                datosCliente= json.obtenerDatos(jsonResult);
-                cargarLocales();
-            }
-
-            @Override
-            public void onError(String result) {
-                mje.mostrarDialog(result, "Banlieue Service", (AppCompatActivity) act);
             }
         });
     }

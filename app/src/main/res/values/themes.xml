@@ -32,11 +32,15 @@
     <string-array name="giro_negocio">
         <item>Comida</item>
         <item>Servicio de ropa (Lavandería, tintorería, etc.)</item>
+        <item>Reparación de tecnología(Celulares, computadoras, televisores, etc.)</item>
+        <item>Carbonera</item>
+        <item>Tutorías escolares</item>
         <item>Abarrotes</item>
         <item>Miscelánea</item>
         <item>Medicina (Consultorio, farmacia, etc.)</item>
-        <item>Ambulante</item>
-        <item>Tianguis</item>
+        <item>Ambulante (Puesto, tianguis, triciclo, etc.)</item>
+        <item>Eventos sociales</item>
+        <item>Funeraria</item>
     </string-array>
 
     <string-array name="dia">

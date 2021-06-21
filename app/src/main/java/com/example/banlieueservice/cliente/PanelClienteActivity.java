@@ -1,24 +1,18 @@
 package com.example.banlieueservice.cliente;
 
 import android.content.Intent;
-import android.content.res.ColorStateList;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.graphics.drawable.DrawerArrowDrawable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
 import com.example.banlieueservice.R;
+import com.example.banlieueservice.actividades.HomeFragment;
 import com.example.banlieueservice.actividades.MainActivity;
 import com.example.banlieueservice.herramientas.Mensaje;
 import com.example.banlieueservice.herramientas.Utilidad;
@@ -28,7 +22,6 @@ import com.example.banlieueservice.cliente.PanCliHome;
 import com.example.banlieueservice.cliente.PanCliModifDatosAcc;
 import com.example.banlieueservice.cliente.PanCliModifDatosPer;
 import com.example.banlieueservice.repartidor.PanCliModifDatosNeg;*/
-import com.example.banlieueservice.repartidor.PanelRepartidorActivity;
 import com.example.banlieueservice.web.JSON;
 import com.example.banlieueservice.web.ServicioWeb;
 import com.google.android.material.navigation.NavigationView;
@@ -54,9 +47,7 @@ public class PanelClienteActivity extends AppCompatActivity implements Navigatio
         initComponents();
         cargarNavegador();
 
-        PanCliHome home= new PanCliHome();
-        home.sendSingleData(getIntent().getStringExtra("correo"));
-        irAFragment(home, getString(R.string.usInicio));
+        irAFragment(new HomeFragment(), getString(R.string.home));
     }
 
     
@@ -67,9 +58,7 @@ public class PanelClienteActivity extends AppCompatActivity implements Navigatio
 
         switch(menuSelected){
             case R.id.itemCliHome:
-                PanCliHome home= new PanCliHome();
-                home.sendSingleData(getIntent().getStringExtra("correo"));
-                irAFragment(home, getString(R.string.usInicio));
+                irAFragment(new PanCliInicio(datosCliente), getString(R.string.usInicio));
                 break;
 
             case R.id.itemCliModifDatosPer:
@@ -89,8 +78,7 @@ public class PanelClienteActivity extends AppCompatActivity implements Navigatio
                 break;
 
             case R.id.itemCliCerrSes:
-                Intent intent= new Intent(PanelClienteActivity.this, MainActivity.class);
-                startActivity(intent);
+                cerrarSesionCliente();
                 break;
 
             case R.id.itemCliElimCta:
@@ -137,6 +125,30 @@ public class PanelClienteActivity extends AppCompatActivity implements Navigatio
         });
     }
 
+    private void cerrarSesionCliente(){
+        JSON json = new JSON();
+        json.agregarDato("tipoPersona", "cli"); //Enviar al servidor clave de indicación de Usuario (para saber qué procedure llamar)
+        json.agregarDato("correo", getIntent().getStringExtra("correo"));
+        ServicioWeb.obtenerInstancia(this).cerrarSesion(json.strJSON(), new VolleyCallBack() {
+            @Override
+            public void onSuccess(String result) {
+
+            }
+
+            @Override
+            public void onJsonSuccess(String jsonResult) {
+                mje.mostrarToast(json.obtenerDatos(jsonResult).get("mjeCierre"), 'l');
+                Intent intent= new Intent(PanelClienteActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+
+            @Override
+            public void onError(String result) {
+                mje.mostrarDialog(result, "Banlieue Service", pancliAct);
+            }
+        });
+    }
+
     private void cargarNavegador(){
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -151,7 +163,7 @@ public class PanelClienteActivity extends AppCompatActivity implements Navigatio
         drawerLayout.getLayoutParams();
         toggle.syncState();
 
-        navView.getMenu().getItem(0).setChecked(true);
+        //navView.getMenu().getItem(0).setChecked(true);
     }
 
     private void irAFragment(Fragment fragment, String titulo){

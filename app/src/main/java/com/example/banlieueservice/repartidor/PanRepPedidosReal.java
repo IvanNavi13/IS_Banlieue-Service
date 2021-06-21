@@ -64,7 +64,7 @@ public class PanRepPedidosReal extends Fragment implements FragmentCommunicator,
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        PedidoDisponible pedidoDisponible= new PedidoDisponible(listaPedidosDisponibles.get(position).get("idPed"));
+        PedidoDisponible pedidoDisponible= new PedidoDisponible(this, "real", listaPedidosDisponibles.get(position).get("idPed"));
         pedidoDisponible.sendData(datosRepartidor);
         pedidoDisponible.sendSingleData("real"); //se avisa que es pedido pendiente
         pedidoDisponible.show(act.getSupportFragmentManager(), "Disponible");
@@ -95,7 +95,7 @@ public class PanRepPedidosReal extends Fragment implements FragmentCommunicator,
         });
     }
 
-    private void cargarPedidos(){
+    public void cargarPedidos(){
         JSON json= new JSON();
         json.agregarDato("pedido", "real");
         json.agregarDato("idRepartidor", datosRepartidor.get("idPartic"));

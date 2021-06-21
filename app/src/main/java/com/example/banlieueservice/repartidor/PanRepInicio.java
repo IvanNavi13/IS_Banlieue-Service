@@ -1,25 +1,18 @@
 package com.example.banlieueservice.repartidor;
 
-import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.banlieueservice.R;
-import com.example.banlieueservice.actividades.MapaActivity;
-import com.google.android.gms.maps.GoogleMap;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.LinkedList;
@@ -36,7 +29,7 @@ public class PanRepInicio extends Fragment{
 
     @Override
     public View onCreateView(LayoutInflater li, ViewGroup vg, Bundle b) {
-        return li.inflate(R.layout.fragment_panrephome, vg, false);
+        return li.inflate(R.layout.fragment_panrepinicio, vg, false);
     }
 
     @Override

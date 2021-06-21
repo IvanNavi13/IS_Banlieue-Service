@@ -79,53 +79,58 @@ public class RegistroRepActivity extends AppCompatActivity {
                         if( !etCurp.getText().toString().contains(sb.toString().replace("-", "")) ) {
                             mje.mostrarDialog("La fecha de nacimiento ingresada no coincide con la del CURP.", "BanlieueService", regrepAct);
                         }
-                        else{
-                            datosCompletos.put("tipoVe", etDatos.pop());
-                            datosCompletos.put("placa", etDatos.pop());
-                            datosCompletos.put("CURP", etDatos.pop());
-                            infoJson.agregarDatos(datosCompletos);
-                            ServicioWeb.obtenerInstancia(ctx).nuevaPersona(infoJson.strJSON(), new VolleyCallBack() {
-                                @Override
-                                public void onSuccess(String result) {
-                                    //Mensaje de éxito del servidor
-                                    mje.mostrarToast(result, 'l');
+                        else {
+                            if(etCurp.getText().toString().length()<18) {
+                                mje.mostrarDialog("La CURP debe contener 18 caracteres.", "Banlieue Service", regrepAct);
+                            }
+                            else{
+                                datosCompletos.put("tipoVe", etDatos.pop());
+                                datosCompletos.put("placa", etDatos.pop());
+                                datosCompletos.put("CURP", etDatos.pop());
+                                infoJson.agregarDatos(datosCompletos);
+                                ServicioWeb.obtenerInstancia(ctx).nuevaPersona(infoJson.strJSON(), new VolleyCallBack() {
+                                    @Override
+                                    public void onSuccess(String result) {
+                                        //Mensaje de éxito del servidor
+                                        mje.mostrarToast(result, 'l');
 
-                                    //Inicio de sesión automático
-                                    Intent intent=null;
-                                    switch(datosCompletos.get("tipoPersona")){
-                                        case "usr": //Abrir panel de usuario
-                                            intent= new Intent(RegistroRepActivity.this, PanelUsuarioActivity.class);
-                                            break;
+                                        //Inicio de sesión automático
+                                        Intent intent = null;
+                                        switch (datosCompletos.get("tipoPersona")) {
+                                            case "usr": //Abrir panel de usuario
+                                                intent = new Intent(RegistroRepActivity.this, PanelUsuarioActivity.class);
+                                                break;
 
-                                        case "cli": //Abrir panel de cliente
-                                            intent= new Intent(RegistroRepActivity.this, PanelClienteActivity.class);
-                                            break;
+                                            case "cli": //Abrir panel de cliente
+                                                intent = new Intent(RegistroRepActivity.this, PanelClienteActivity.class);
+                                                break;
 
-                                        case "rep": //Abrir panel de repartidor
-                                            intent= new Intent(RegistroRepActivity.this, PanelRepartidorActivity.class);
-                                            break;
+                                            case "rep": //Abrir panel de repartidor
+                                                intent = new Intent(RegistroRepActivity.this, PanelRepartidorActivity.class);
+                                                break;
 
-                                        default: //Algo anda mal en el servidor
-                                            mje.mostrarDialog("Servidor corrupto", "Banlieue Service", regrepAct);
-                                            break;
+                                            default: //Algo anda mal en el servidor
+                                                mje.mostrarDialog("Servidor corrupto", "Banlieue Service", regrepAct);
+                                                break;
+                                        }
+                                        //... Finalmente, se carga el correo verificado en el intent para que
+                                        //el respectivo panel cargue la información completa en su información completa
+                                        intent.putExtra("correo", datosCompletos.get("correo"));
+                                        startActivity(intent);
+                                        finish();
                                     }
-                                    //... Finalmente, se carga el correo verificado en el intent para que
-                                    //el respectivo panel cargue la información completa en su información completa
-                                    intent.putExtra("correo", datosCompletos.get("correo"));
-                                    startActivity(intent);
-                                    finish();
-                                }
 
-                                @Override
-                                public void onJsonSuccess(String jsonResult) {
+                                    @Override
+                                    public void onJsonSuccess(String jsonResult) {
 
-                                }
+                                    }
 
-                                @Override
-                                public void onError(String result) {
-                                    mje.mostrarDialog(result, "Banlieue Service", regrepAct);
-                                }
-                            });
+                                    @Override
+                                    public void onError(String result) {
+                                        mje.mostrarDialog(result, "Banlieue Service", regrepAct);
+                                    }
+                                });
+                            }
                         }
                     }
                 }

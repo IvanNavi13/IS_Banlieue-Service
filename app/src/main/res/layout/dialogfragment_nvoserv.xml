@@ -7,7 +7,6 @@
     android:background="@color/banAzul">
 
     <ScrollView
-        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fillViewport="true"
@@ -25,7 +24,7 @@
                 android:textColor="@color/white"
                 android:layout_gravity="center_horizontal"
                 android:gravity="center"
-                android:textSize="40dp"
+                android:textSize="40sp"
                 />
 
             <EditText android:id="@+id/etServNombre"
@@ -36,7 +35,7 @@
                 android:gravity="center"
                 android:inputType="textCapSentences|textAutoCorrect"
                 android:textColor="@color/white"
-                android:textSize="20dp"
+                android:textSize="20sp"
                 android:theme="@style/cajasTexto"
                 />
 
@@ -59,7 +58,7 @@
                 android:gravity="center"
                 android:inputType="numberDecimal"
                 android:textColor="@color/white"
-                android:textSize="20dp"
+                android:textSize="20sp"
                 android:theme="@style/cajasTexto"
                 />
 
