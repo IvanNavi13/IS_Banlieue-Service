@@ -55,7 +55,7 @@ DELIMITER ;
 DELIMITER #
 CREATE PROCEDURE elimRepartidor(IN idrepa int, IN idper int)
 BEGIN
-	DELETE FROM CuerpoPedido WHERE idRep=idrepa;
+	DELETE FROM Pedido WHERE idRep=idrepa;
 	DELETE FROM Vehiculo WHERE idRep=idrepa;
 	DELETE FROM Repartidor WHERE idRep=idrepa;
 	DELETE FROM Persona WHERE idPersona=idper;
@@ -113,7 +113,7 @@ CREATE VIEW cuerposDePedido AS
 	ps.idEst=e.idEst;
 
 CREATE VIEW lugarDePedido AS
-	SELECT DISTINCT ped.idPed, e.nombre AS lugar, e.direccion AS dirLugar, CONCAT(e.apertura, " - ", e.cierre) AS horarioLugar 
+	SELECT DISTINCT ped.idPed, e.idEst, e.nombre AS lugar, e.direccion AS dirLugar, CONCAT(e.apertura, " - ", e.cierre) AS horarioLugar 
 	FROM Establecimiento e, Producto_Servicio ps, Pedido ped, CuerpoPedido cp 
 	WHERE 
 	cp.idPed=ped.idPed AND 
@@ -137,4 +137,26 @@ CREATE VIEW pedidosRealizados AS
 	u.idPersona=p.idPersona AND
 	ped.idRep IS NOT NULL AND 
 	ped.hecho=1;
+
+
+
+/*-------PARA CONSULTAS RÁPIDAS EN LA BASE DE DATOS-------*/
+CREATE VIEW listaClientes AS
+	SELECT p.idPersona, c.idCli, CONCAT(p.nombres, " ", p.apaterno, " ", p.amaterno) AS Cliente, p.telefono, p.fechanac, p.correo, p.contrasena  
+	FROM Persona p, Cliente c
+	WHERE 
+	p.idPersona=c.idPersona;
+
+CREATE VIEW listaUsuarios AS
+	SELECT p.idPersona, u.idUs, CONCAT(p.nombres, " ", p.apaterno, " ", p.amaterno) AS Usuario, p.telefono, p.fechanac, p.correo, p.contrasena  
+	FROM Persona p, Usuario u
+	WHERE 
+	p.idPersona=u.idPersona;
+
+
+CREATE VIEW listaRepartidores AS
+	SELECT p.idPersona, r.idRep, CONCAT(p.nombres, " ", p.apaterno, " ", p.amaterno) AS Repartidor, p.telefono, p.fechanac, p.correo, p.contrasena  
+	FROM Persona p, Repartidor r 
+	WHERE 
+	p.idPersona=r.idPersona;
 
